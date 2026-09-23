@@ -30,11 +30,7 @@ export default defineTask({
 		const seasonIds = new Map<string, number>();
 		for (const name of seasonNames) {
 			const isCurrent = name === currentSeason;
-			const [season] = await db
-				.insert(schema.seasons)
-				.values({ name, isCurrent })
-				.onConflictDoUpdate({ target: schema.seasons.name, set: { isCurrent } })
-				.returning();
+			const [season] = await db.insert(schema.seasons).values({ name, isCurrent }).onConflictDoUpdate({ target: schema.seasons.name, set: { isCurrent } }).returning();
 			seasonIds.set(name, season!.id);
 		}
 

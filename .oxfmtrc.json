@@ -3,6 +3,6 @@
 	"useTabs": true,
 	"singleQuote": false,
 	"semi": true,
-	"printWidth": 120,
+	"printWidth": 300,
 	"ignorePatterns": ["server/db/migrations/**", "server/db/seed/**"]
 }

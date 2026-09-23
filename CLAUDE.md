@@ -64,7 +64,7 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 - **TypeScript is pinned to 6.x.** TS 7 (the Go-native compiler) has no JS API, and NuxtHub's schema build (rolldown-plugin-dts) breaks with it. Revisit when the ecosystem supports TS 7.
 - **oxlint + oxfmt, not ESLint/Prettier.** Oxlint does not lint Vue `<template>` blocks yet; `nuxt typecheck` covers template type errors. Don't add ESLint to fill the gap. shadcn/lint was considered and skipped (can't see templates under Oxlint; DaisyUI components are classes, not Vue components).
 - **Styling rule:** use DaisyUI components and semantic theme colors (`primary`, `base-100`, `base-content`, …), not raw Tailwind palette colors (`red-500`) or arbitrary values (`p-[13px]`).
-- **Code style** (enforced by oxfmt): tabs, double quotes, semicolons, 120-char lines — matches the old codebase.
+- **Code style** (enforced by oxfmt): tabs, double quotes, semicolons, 300-char lines (owner prefers long single lines over wrapped blocks).
 
 ## Data migration from the old app
 
@@ -74,7 +74,7 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 
 ## Deployment (not set up yet)
 
-1. Create the GitHub repo and push.
+1. ~~Create the GitHub repo and push.~~ Done: https://github.com/carvnich/paris-indoor-soccer-nuxt
 2. `wrangler login`, then `wrangler d1 create paris-indoor-soccer` (note the id) and `wrangler r2 bucket create paris-indoor-soccer-photos`.
 3. In the Cloudflare dashboard: Workers → Create → Import a repository. Build command `pnpm build:cloudflare`, deploy command `pnpm deploy:cloudflare`. Build variable `NUXT_HUB_CLOUDFLARE_DATABASE_ID=<id>`.
 4. Worker secrets: `NUXT_BETTER_AUTH_SECRET` (`openssl rand -hex 32`), `NUXT_PUBLIC_SITE_URL=https://<domain>`.
@@ -86,7 +86,7 @@ Push to `main` deploys; PRs get preview URLs.
 ## Progress
 
 1. [x] Scaffold: Nuxt 4, DaisyUI, NuxtHub (db + blob), Better Auth, oxlint/oxfmt, schema + first migration, seed + create-admin tasks. Verified: seed is re-runnable, sign-up blocked, admin guard 401/403/200, Cloudflare build + `wrangler deploy --dry-run` (488 KB gzip).
-2. [ ] Layout + navbar (port `RootLayout`, `Navbar`)
+2. [x] Layout + navbar (`app/layouts/default.vue`); all DaisyUI themes enabled (light default, dark on OS preference, no picker yet)
 3. [ ] Public pages: Home (standings + upcoming), Matches (season dropdown), Rosters — standings as a SQL query
 4. [ ] Login page + admin-only API routes; edit match score
 5. [ ] Players: add/edit with photo upload to blob (client-side resize)

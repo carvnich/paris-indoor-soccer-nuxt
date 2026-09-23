@@ -1,0 +1,9 @@
+// Format on save with the repo's oxfmt (.oxfmtrc.json) instead of Prettier.
+{
+	"languages": {
+		"Vue.js": { "formatter": { "external": { "command": "./node_modules/.bin/oxfmt", "arguments": ["--stdin-filepath", "{buffer_path}"] } } },
+		"TypeScript": { "formatter": { "external": { "command": "./node_modules/.bin/oxfmt", "arguments": ["--stdin-filepath", "{buffer_path}"] } } },
+		"JavaScript": { "formatter": { "external": { "command": "./node_modules/.bin/oxfmt", "arguments": ["--stdin-filepath", "{buffer_path}"] } } },
+		"CSS": { "formatter": { "external": { "command": "./node_modules/.bin/oxfmt", "arguments": ["--stdin-filepath", "{buffer_path}"] } } }
+	}
+}
