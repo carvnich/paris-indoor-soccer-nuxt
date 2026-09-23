@@ -59,12 +59,91 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 - **Protect every write endpoint with** `await requireUserSession(event, { user: { role: "admin" } })` — 401 when signed out, 403 for non-admins (verified). The old app only checked "logged in", not role.
 - **R2 replaces ImageKit.** No resizing/transforms were used. Nothing converts images on upload, so resize/compress in the browser before uploading (canvas → WebP, ~800px wide).
 - **Players change teams every season.** `players` is the person; `rosters` (season, player → team) says which team they were on, with one team per player per season enforced by the primary key. A team exists per season (captain name + jersey color).
-- **Playoff placeholders.** Playoff games are scheduled before teams are known: `home_team_id`/`away_team_id` are null and `home_slot`/`away_slot` hold labels like `3rd`, `Highest seed`, `Finals`. The old app resolved these on the fly from standings and earlier results (`../paris-indoor-soccer/frontend/src/utils/data.js`, `updatePlayoffTeams`). Deciding whether to compute that or have admins assign teams is open.
+- **Playoff placeholders.** Playoff games are scheduled before teams are known: `home_team_id`/`away_team_id` are null and `home_slot`/`away_slot` hold labels like `3rd`, `Highest seed`, `Finals`. They're computed, not assigned: `resolvePlayoffs` in `server/utils/season.ts` fills them once every regular-season game has a score. Quarterfinal winners are re-ranked, so 1st plays the lower-ranked winner ("Lowest Seed"). That matches the real 2024/25 bracket; the old app's `updatePlayoffTeams` hard-coded it wrongly.
 - **Dates are local wall-clock text** (`2025-10-24T19:30:00`, no offset). Workers run in UTC — don't round-trip through `Date` on the server. Format for display with `Intl.DateTimeFormat` (moment is gone).
 - **TypeScript is pinned to 6.x.** TS 7 (the Go-native compiler) has no JS API, and NuxtHub's schema build (rolldown-plugin-dts) breaks with it. Revisit when the ecosystem supports TS 7.
 - **oxlint + oxfmt, not ESLint/Prettier.** Oxlint does not lint Vue `<template>` blocks yet; `nuxt typecheck` covers template type errors. Don't add ESLint to fill the gap. shadcn/lint was considered and skipped (can't see templates under Oxlint; DaisyUI components are classes, not Vue components).
 - **Styling rule:** use DaisyUI components and semantic theme colors (`primary`, `base-100`, `base-content`, …), not raw Tailwind palette colors (`red-500`) or arbitrary values (`p-[13px]`).
 - **Code style** (enforced by oxfmt): tabs, double quotes, semicolons, 300-char lines (owner prefers long single lines over wrapped blocks).
+
+## Conventions
+
+- **Minimal code.** Use the fewest lines, components and classes that achieve the goal. No helpers, wrapper components or abstractions for one-off use. No classes that don't change the result (e.g. values DaisyUI already sets).
+- **Commit messages:** `type: short summary`, a blank line, then one short bullet per change. Types: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`.
+
+  ```
+  feat: add theme picker to navbar
+
+  - Dropdown lists all DaisyUI themes with color previews
+  - Choice saved in a `theme` cookie and rendered server-side
+  ```
+
+- **Goal:** simple, maintainable code with the best performance. The guidelines below serve that; worked examples are in `EXAMPLES.md`.
+
+## 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
 ## Data migration from the old app
 
@@ -87,7 +166,7 @@ Push to `main` deploys; PRs get preview URLs.
 
 1. [x] Scaffold: Nuxt 4, DaisyUI, NuxtHub (db + blob), Better Auth, oxlint/oxfmt, schema + first migration, seed + create-admin tasks. Verified: seed is re-runnable, sign-up blocked, admin guard 401/403/200, Cloudflare build + `wrangler deploy --dry-run` (488 KB gzip).
 2. [x] Layout + navbar (`app/layouts/default.vue`); all DaisyUI themes + navbar picker with color previews (`theme` cookie rendered server-side; "System" = light/dark from OS)
-3. [ ] Public pages: Home (standings + upcoming), Matches (season dropdown), Rosters — standings as a SQL query
+3. [x] Public pages: Home (match day + standings), Matches (season select, team filter), Rosters (empty until players are imported). Local DB has 2024/2025 marked current (it has scores) for UI work; re-running `db:seed` resets that.
 4. [ ] Login page + admin-only API routes; edit match score
 5. [ ] Players: add/edit with photo upload to blob (client-side resize)
 6. [ ] Import real data from MongoDB (25/26 results, players, photos)
