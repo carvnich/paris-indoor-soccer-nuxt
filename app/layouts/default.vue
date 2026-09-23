@@ -7,6 +7,54 @@ const links = [
 	{ to: "/matches", label: "Matches" },
 	{ to: "/rosters", label: "Rosters" },
 ];
+
+// DaisyUI built-in themes (all enabled in main.css). No cookie = light/dark from the OS.
+const themes = [
+	"light",
+	"dark",
+	"cupcake",
+	"bumblebee",
+	"emerald",
+	"corporate",
+	"synthwave",
+	"retro",
+	"cyberpunk",
+	"valentine",
+	"halloween",
+	"garden",
+	"forest",
+	"aqua",
+	"lofi",
+	"pastel",
+	"fantasy",
+	"wireframe",
+	"black",
+	"luxury",
+	"dracula",
+	"cmyk",
+	"autumn",
+	"business",
+	"acid",
+	"lemonade",
+	"night",
+	"coffee",
+	"winter",
+	"dim",
+	"nord",
+	"sunset",
+	"caramellatte",
+	"abyss",
+	"silk",
+];
+// A cookie (not localStorage) so the server renders the right theme and the page doesn't flash.
+const theme = useCookie<string | null>("theme", { maxAge: 60 * 60 * 24 * 365 });
+useHead({ htmlAttrs: { "data-theme": () => theme.value || undefined } });
+
+function pickTheme(name: string | null) {
+	theme.value = name;
+	// The DaisyUI dropdown stays open while it has focus
+	(document.activeElement as HTMLElement | null)?.blur();
+}
 </script>
 
 <template>
@@ -29,6 +77,27 @@ const links = [
 				</template>
 				<NuxtLink v-else to="/login" class="btn btn-primary btn-sm">Login</NuxtLink>
 			</nav>
+
+			<!-- Each item sets data-theme on itself, so its colors preview that theme -->
+			<div class="dropdown dropdown-end ml-2">
+				<div tabindex="0" role="button" class="btn btn-ghost btn-sm">{{ theme ?? "System" }} ▾</div>
+				<ul tabindex="-1" class="dropdown-content menu z-40 mt-2 max-h-96 flex-nowrap gap-1 overflow-y-auto rounded-box bg-base-200 p-2 shadow-lg">
+					<li>
+						<button :class="{ 'menu-active': !theme }" @click="pickTheme(null)">System</button>
+					</li>
+					<li v-for="name in themes" :key="name">
+						<button :data-theme="name" class="bg-base-100 text-base-content" :class="{ 'outline-2 outline-base-content': theme === name }" @click="pickTheme(name)">
+							<span class="flex-1 text-left">{{ name }}</span>
+							<span class="flex gap-1">
+								<span class="size-2 rounded-full bg-primary"></span>
+								<span class="size-2 rounded-full bg-secondary"></span>
+								<span class="size-2 rounded-full bg-accent"></span>
+								<span class="size-2 rounded-full bg-neutral"></span>
+							</span>
+						</button>
+					</li>
+				</ul>
+			</div>
 
 			<!-- Mobile -->
 			<button class="btn btn-square btn-ghost md:hidden" aria-label="Toggle menu" @click="menuOpen = !menuOpen">

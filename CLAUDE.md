@@ -86,7 +86,7 @@ Push to `main` deploys; PRs get preview URLs.
 ## Progress
 
 1. [x] Scaffold: Nuxt 4, DaisyUI, NuxtHub (db + blob), Better Auth, oxlint/oxfmt, schema + first migration, seed + create-admin tasks. Verified: seed is re-runnable, sign-up blocked, admin guard 401/403/200, Cloudflare build + `wrangler deploy --dry-run` (488 KB gzip).
-2. [x] Layout + navbar (`app/layouts/default.vue`); all DaisyUI themes enabled (light default, dark on OS preference, no picker yet)
+2. [x] Layout + navbar (`app/layouts/default.vue`); all DaisyUI themes + navbar picker with color previews (`theme` cookie rendered server-side; "System" = light/dark from OS)
 3. [ ] Public pages: Home (standings + upcoming), Matches (season dropdown), Rosters — standings as a SQL query
 4. [ ] Login page + admin-only API routes; edit match score
 5. [ ] Players: add/edit with photo upload to blob (client-side resize)
