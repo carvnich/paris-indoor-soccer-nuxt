@@ -1,12 +1,17 @@
 <script setup lang="ts">
-const { data } = await useFetch("/api/rosters");
+const data = await useSeason("/api/rosters");
+// First team selected, again after a season change
 const teamId = ref(data.value?.teams[0]?.id);
+watch(data, () => (teamId.value = data.value?.teams[0]?.id));
 const players = computed(() => data.value?.players.filter((p) => p.teamId === teamId.value) ?? []);
 </script>
 
 <template>
 	<div v-if="data" class="flex flex-col gap-4">
-		<h1 class="text-2xl font-bold">Rosters {{ data.season.name }}</h1>
+		<div class="flex items-center justify-between gap-2">
+			<h1 class="text-2xl font-bold">Rosters</h1>
+			<SeasonSelect :seasons="data.seasons" :season-id="data.season.id" />
+		</div>
 
 		<div role="tablist" class="tabs tabs-box">
 			<button v-for="t in data.teams" :key="t.id" role="tab" class="tab gap-2" :class="{ 'tab-active': teamId === t.id }" @click="teamId = t.id">
