@@ -4,8 +4,8 @@ const timeFormat = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "
 
 export const formatDate = (startsAt: string) => dateFormat.format(new Date(`${startsAt.slice(0, 10)}T12:00:00Z`));
 export const formatTime = (startsAt: string) => timeFormat.format(new Date(`${startsAt}Z`));
-// Today's date in the browser's timezone, as YYYY-MM-DD
-export const today = () => new Date().toLocaleDateString("en-CA");
+// Today's date in the league's timezone, as YYYY-MM-DD. Fixed so the server (UTC on Workers) and the browser agree on the day.
+export const today = () => new Date().toLocaleDateString("en-CA", { timeZone: "America/Toronto" });
 
 // Matches grouped by date, as [YYYY-MM-DD, matches] pairs in date order
 export const groupByDay = <T extends { startsAt: string }>(matches: T[]) => Object.entries(Object.groupBy(matches, (m) => m.startsAt.slice(0, 10))) as [string, T[]][];
