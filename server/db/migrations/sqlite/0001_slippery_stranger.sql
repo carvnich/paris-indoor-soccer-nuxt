@@ -1,0 +1,1 @@
+CREATE INDEX `matches_season_id_starts_at_idx` ON `matches` (`season_id`,`starts_at`);
