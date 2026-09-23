@@ -1,15 +1,11 @@
 <script setup lang="ts">
 const route = useRoute();
-const { data } = await useFetch("/api/season", { query: { id: computed(() => route.query.season) } });
+const data = await useSeason("/api/season");
 
-// Match days as [YYYY-MM-DD, matches]; start on the next one to play (or the last, once the season is over)
-const days = computed(() => Object.entries(Object.groupBy(data.value?.matches ?? [], (m) => m.startsAt.slice(0, 10))));
-const nextDay = () => {
-	const i = days.value.findIndex(([day]) => day >= today());
-	return i === -1 ? days.value.length - 1 : i;
-};
-const dayIndex = ref(nextDay());
-watch(days, () => (dayIndex.value = nextDay()));
+// Start on the next match day to play
+const days = computed(() => groupByDay(data.value?.matches ?? []));
+const dayIndex = ref(nextDayIndex(days.value));
+watch(days, () => (dayIndex.value = nextDayIndex(days.value)));
 const day = computed(() => days.value[dayIndex.value]);
 </script>
 
@@ -21,7 +17,7 @@ const day = computed(() => days.value[dayIndex.value]);
 					<button class="btn btn-square btn-sm" aria-label="Previous match day" :disabled="dayIndex === 0" @click="dayIndex--">‹</button>
 					<h2 class="card-title">
 						{{ formatDate(day[0]) }}
-						<span v-if="day[1]?.some((m) => m.isPlayoff)" class="badge badge-warning">Playoffs</span>
+						<span v-if="day[1].some((m) => m.isPlayoff)" class="badge badge-warning">Playoffs</span>
 					</h2>
 					<button class="btn btn-square btn-sm" aria-label="Next match day" :disabled="dayIndex === days.length - 1" @click="dayIndex++">›</button>
 				</div>
@@ -34,7 +30,7 @@ const day = computed(() => days.value[dayIndex.value]);
 			<div class="card-body">
 				<div class="flex items-center justify-between">
 					<h2 class="card-title">Standings</h2>
-					<SeasonSelect :season-id="data.season.id" />
+					<SeasonSelect :seasons="data.seasons" :season-id="data.season.id" />
 				</div>
 				<div class="overflow-x-auto">
 					<table class="table">

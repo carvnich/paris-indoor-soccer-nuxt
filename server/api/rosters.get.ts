@@ -1,10 +1,8 @@
 import { eq } from "drizzle-orm";
 
-// Current season's teams and the players on each.
-export default defineEventHandler(async () => {
-	const [season] = await db.select().from(schema.seasons).where(eq(schema.seasons.isCurrent, true));
-	if (!season) throw createError({ statusCode: 404, statusMessage: "No current season" });
-
+// One season's teams and the players on each, plus all seasons for the season picker. Defaults to the newest season.
+export default defineEventHandler(async (event) => {
+	const { season, seasons } = await findSeason(getQuery(event).id);
 	const [teams, players] = await Promise.all([
 		db.select().from(schema.teams).where(eq(schema.teams.seasonId, season.id)),
 		db
@@ -15,5 +13,5 @@ export default defineEventHandler(async () => {
 			.orderBy(schema.players.lastName),
 	]);
 
-	return { season, teams, players };
+	return { season, seasons, teams, players };
 });

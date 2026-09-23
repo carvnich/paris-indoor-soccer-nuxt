@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // Switches season through the ?season= query, so the choice survives reloads and links.
-defineProps<{ seasonId: number }>();
-const { data: seasons } = await useFetch("/api/seasons");
+defineProps<{ seasons: { id: number; name: string }[]; seasonId: number }>();
 </script>
 
 <template>

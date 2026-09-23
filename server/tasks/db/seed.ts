@@ -20,17 +20,11 @@ interface LegacyMatch {
 const legacyMatches: LegacyMatch[] = [...matches2024, ...matches2025];
 
 export default defineTask({
-	meta: {
-		name: "db:seed",
-		description: "Import legacy seasons, teams and matches. Safe to re-run: existing rows are updated.",
-	},
+	meta: { name: "db:seed", description: "Import legacy seasons, teams and matches. Safe to re-run: existing rows are updated." },
 	async run() {
-		const seasonNames = [...new Set(legacyMatches.map((m) => m.season))].sort();
-		const currentSeason = seasonNames.at(-1);
 		const seasonIds = new Map<string, number>();
-		for (const name of seasonNames) {
-			const isCurrent = name === currentSeason;
-			const [season] = await db.insert(schema.seasons).values({ name, isCurrent }).onConflictDoUpdate({ target: schema.seasons.name, set: { isCurrent } }).returning();
+		for (const name of new Set(legacyMatches.map((m) => m.season))) {
+			const [season] = await db.insert(schema.seasons).values({ name }).onConflictDoUpdate({ target: schema.seasons.name, set: { name } }).returning();
 			seasonIds.set(name, season!.id);
 		}
 
@@ -43,10 +37,7 @@ export default defineTask({
 				const [team] = await db
 					.insert(schema.teams)
 					.values({ seasonId, name: side.team, color: side.color })
-					.onConflictDoUpdate({
-						target: [schema.teams.seasonId, schema.teams.color],
-						set: { name: side.team },
-					})
+					.onConflictDoUpdate({ target: [schema.teams.seasonId, schema.teams.color], set: { name: side.team } })
 					.returning();
 				teamIds.set(key, team!.id);
 			}
@@ -57,23 +48,10 @@ export default defineTask({
 			const seasonId = seasonIds.get(m.season)!;
 			const home = await resolveSide(seasonId, m.homeTeam);
 			const away = await resolveSide(seasonId, m.awayTeam);
-			const values = {
-				code: m.matchId,
-				seasonId,
-				startsAt: m.dateTime,
-				homeTeamId: home.teamId,
-				homeSlot: home.slot,
-				awayTeamId: away.teamId,
-				awaySlot: away.slot,
-				homeScore: m.homeTeam.score ?? null,
-				awayScore: m.awayTeam.score ?? null,
-				isPlayoff: m.isPlayoff,
-			};
+			const values = { code: m.matchId, seasonId, startsAt: m.dateTime, homeTeamId: home.teamId, homeSlot: home.slot, awayTeamId: away.teamId, awaySlot: away.slot, homeScore: m.homeTeam.score ?? null, awayScore: m.awayTeam.score ?? null, isPlayoff: m.isPlayoff };
 			await db.insert(schema.matches).values(values).onConflictDoUpdate({ target: schema.matches.code, set: values });
 		}
 
-		return {
-			result: { seasons: seasonIds.size, teams: teamIds.size, matches: legacyMatches.length },
-		};
+		return { result: { seasons: seasonIds.size, teams: teamIds.size, matches: legacyMatches.length } };
 	},
 });

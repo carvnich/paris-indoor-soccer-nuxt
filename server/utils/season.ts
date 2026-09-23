@@ -1,24 +1,12 @@
-// Pure functions (no auto-imports) so they can be run directly with node for testing.
+// Pure functions (no auto-imports) so node can run them directly: see test/season.test.ts.
+import type { matches, teams } from "../db/schema";
 
-interface Team {
-	id: number;
-	name: string;
-	color: string;
-}
-
-interface Match {
-	isPlayoff: boolean;
-	homeTeamId: number | null;
-	awayTeamId: number | null;
-	homeSlot: string | null;
-	awaySlot: string | null;
-	homeScore: number | null;
-	awayScore: number | null;
-}
+type Team = typeof teams.$inferSelect;
+type Match = typeof matches.$inferSelect;
 
 // Regular season only: 3 points a win, 1 a draw; ties broken by goal difference.
 export function computeStandings(teams: Team[], matches: Match[]) {
-	const rows = teams.map((t) => ({ ...t, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0 }));
+	const rows = teams.map((t) => ({ ...t, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0 }));
 	for (const m of matches) {
 		if (m.isPlayoff || m.homeScore === null || m.awayScore === null) continue;
 		for (const [id, gf, ga] of [
@@ -29,13 +17,14 @@ export function computeStandings(teams: Team[], matches: Match[]) {
 			row.played++;
 			row.goalsFor += gf;
 			row.goalsAgainst += ga;
+			row.goalDifference += gf - ga;
 			if (gf > ga) row.wins++;
 			else if (gf < ga) row.losses++;
 			else row.draws++;
-			row.points = row.wins * 3 + row.draws;
 		}
 	}
-	return rows.map((r) => ({ ...r, goalDifference: r.goalsFor - r.goalsAgainst })).sort((a, b) => b.points - a.points || b.goalDifference - a.goalDifference);
+	for (const r of rows) r.points = r.wins * 3 + r.draws;
+	return rows.sort((a, b) => b.points - a.points || b.goalDifference - a.goalDifference);
 }
 
 // Fills in playoff teams from placeholder slots, in place. `seeds` = team ids by final standing.

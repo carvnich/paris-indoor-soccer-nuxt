@@ -15,6 +15,13 @@
       "when": 1790188286844,
       "tag": "0001_slippery_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790189051722,
+      "tag": "0002_fresh_the_fallen",
+      "breakpoints": true
     }
   ]
 }

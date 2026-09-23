@@ -1,16 +1,14 @@
 <script setup lang="ts">
 const route = useRoute();
-const { data } = await useFetch("/api/season", { query: { id: computed(() => route.query.season) } });
+const data = await useSeason("/api/season");
 
 const teamId = ref<number>();
 watch(
 	() => route.query.season,
 	() => (teamId.value = undefined),
 );
-const matches = computed(() => (data.value?.matches ?? []).filter((m) => !teamId.value || m.homeTeamId === teamId.value || m.awayTeamId === teamId.value));
-// Match days as [YYYY-MM-DD, matches]
-const days = computed(() => Object.entries(Object.groupBy(matches.value, (m) => m.startsAt.slice(0, 10))));
-const nextDay = computed(() => days.value.find(([day]) => day >= today())?.[0] ?? days.value.at(-1)?.[0]);
+const days = computed(() => groupByDay((data.value?.matches ?? []).filter((m) => !teamId.value || m.homeTeamId === teamId.value || m.awayTeamId === teamId.value)));
+const nextDay = computed(() => days.value[nextDayIndex(days.value)]?.[0]);
 </script>
 
 <template>
@@ -19,7 +17,7 @@ const nextDay = computed(() => days.value.find(([day]) => day >= today())?.[0] ?
 			<h1 class="text-2xl font-bold">Matches</h1>
 			<div class="flex gap-2">
 				<NuxtLink :to="{ query: route.query, hash: `#day-${nextDay}` }" class="btn btn-sm">Today</NuxtLink>
-				<SeasonSelect :season-id="data.season.id" />
+				<SeasonSelect :seasons="data.seasons" :season-id="data.season.id" />
 			</div>
 		</div>
 
@@ -34,7 +32,7 @@ const nextDay = computed(() => days.value.find(([day]) => day >= today())?.[0] ?
 			<div class="card-body">
 				<h2 class="card-title">
 					{{ formatDate(day) }}
-					<span v-if="dayMatches?.some((m) => m.isPlayoff)" class="badge badge-warning">Playoffs</span>
+					<span v-if="dayMatches.some((m) => m.isPlayoff)" class="badge badge-warning">Playoffs</span>
 				</h2>
 				<MatchRow v-for="m in dayMatches" :key="m.id" :match="m" :teams="data.teams" />
 			</div>
