@@ -1,0 +1,1042 @@
+[
+	{
+		"matchId": "242501",
+		"dateTime": "2024-10-25T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 3
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242502",
+		"dateTime": "2024-10-25T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 5
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 2
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242503",
+		"dateTime": "2024-10-25T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 7
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 3
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242504",
+		"dateTime": "2024-11-01T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 1
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 10
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242505",
+		"dateTime": "2024-11-01T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 6
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242506",
+		"dateTime": "2024-11-01T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 7
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242507",
+		"dateTime": "2024-11-08T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 5
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242508",
+		"dateTime": "2024-11-08T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 8
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242509",
+		"dateTime": "2024-11-08T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 11
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 1
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242510",
+		"dateTime": "2024-11-15T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 1
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 6
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242511",
+		"dateTime": "2024-11-15T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 0
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 12
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242512",
+		"dateTime": "2024-11-15T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 11
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242513",
+		"dateTime": "2024-11-22T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 3
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242514",
+		"dateTime": "2024-11-22T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 5
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242515",
+		"dateTime": "2024-11-22T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 6
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 5
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242516",
+		"dateTime": "2024-11-29T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242517",
+		"dateTime": "2024-11-29T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 11
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 0
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242518",
+		"dateTime": "2024-11-29T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 1
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242519",
+		"dateTime": "2024-12-06T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 10
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242520",
+		"dateTime": "2024-12-06T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 5
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242521",
+		"dateTime": "2024-12-06T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242522",
+		"dateTime": "2024-12-13T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 8
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242523",
+		"dateTime": "2024-12-13T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 6
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242524",
+		"dateTime": "2024-12-13T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242525",
+		"dateTime": "2024-12-20T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 12
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242526",
+		"dateTime": "2024-12-20T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 1
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 7
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242527",
+		"dateTime": "2024-12-20T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 14
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242528",
+		"dateTime": "2025-01-03T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242529",
+		"dateTime": "2025-01-03T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 7
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 3
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242530",
+		"dateTime": "2025-01-03T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 1
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242531",
+		"dateTime": "2025-01-10T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242532",
+		"dateTime": "2025-01-10T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 13
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 5
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242533",
+		"dateTime": "2025-01-10T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 7
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 7
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242534",
+		"dateTime": "2025-01-17T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 5
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 15
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242535",
+		"dateTime": "2025-01-17T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 5
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 11
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242536",
+		"dateTime": "2025-01-17T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 1
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 5
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242537",
+		"dateTime": "2025-01-24T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 11
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242538",
+		"dateTime": "2025-01-24T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 8
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242539",
+		"dateTime": "2025-01-24T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 10
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 1
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242540",
+		"dateTime": "2025-02-07T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 5
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 2
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242541",
+		"dateTime": "2025-02-07T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 2
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242542",
+		"dateTime": "2025-02-07T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 5
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 8
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242543",
+		"dateTime": "2025-02-14T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 2
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242544",
+		"dateTime": "2025-02-14T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 14
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 9
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242545",
+		"dateTime": "2025-02-14T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 6
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 3
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242546",
+		"dateTime": "2025-02-21T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 11
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242547",
+		"dateTime": "2025-02-21T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 8
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 7
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242548",
+		"dateTime": "2025-02-21T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 1
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 10
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242549",
+		"dateTime": "2025-02-28T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 7
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242550",
+		"dateTime": "2025-02-28T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 8
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242551",
+		"dateTime": "2025-02-28T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 11
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 1
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242552",
+		"dateTime": "2025-03-07T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 10
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242553",
+		"dateTime": "2025-03-07T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 9
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242554",
+		"dateTime": "2025-03-07T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 5
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 10
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242555",
+		"dateTime": "2025-03-14T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 6
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242556",
+		"dateTime": "2025-03-14T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 5
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 5
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242557",
+		"dateTime": "2025-03-14T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 6
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242558",
+		"dateTime": "2025-03-21T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 4
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242559",
+		"dateTime": "2025-03-21T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 3
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 13
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242560",
+		"dateTime": "2025-03-21T21:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 1
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 7
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "242561",
+		"dateTime": "2025-03-28T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 17
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": 2
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "242562",
+		"dateTime": "2025-03-28T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": 1
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "242563",
+		"dateTime": "2025-04-04T19:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": 2
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 3
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "242564",
+		"dateTime": "2025-04-04T20:30:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 10
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "Grey",
+			"score": 4
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "242565",
+		"dateTime": "2025-04-11T20:15:00",
+		"season": "2024/2025",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": 4
+		},
+		"awayTeam": {
+			"team": "Nick",
+			"color": "Green",
+			"score": 8
+		},
+		"isPlayoff": true
+	}
+]
