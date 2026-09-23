@@ -1,5 +1,5 @@
-import matches2024 from "../../db/seed/matches-2024-2025.json";
-import matches2025 from "../../db/seed/matches-2025-2026.json";
+// 2024/25 and 2025/26 are left out until they're migrated to D1 (their files stay for that and for the tests).
+import matches2026 from "../../db/seed/matches-2026-2027.json";
 
 // Shape of the legacy MongoDB `matches` documents. A `mongoexport --jsonArray`
 // of that collection has the same shape and can replace these files.
@@ -17,7 +17,7 @@ interface LegacyMatch {
 	isPlayoff: boolean;
 }
 
-const legacyMatches: LegacyMatch[] = [...matches2024, ...matches2025];
+const legacyMatches: LegacyMatch[] = matches2026;
 
 export default defineTask({
 	meta: { name: "db:seed", description: "Import legacy seasons, teams and matches. Safe to re-run: existing rows are updated." },

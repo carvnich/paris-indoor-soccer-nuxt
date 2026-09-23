@@ -1,0 +1,1282 @@
+[
+	{
+		"matchId": "262701",
+		"dateTime": "2026-10-16T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262702",
+		"dateTime": "2026-10-16T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262703",
+		"dateTime": "2026-10-16T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262704",
+		"dateTime": "2026-10-23T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262705",
+		"dateTime": "2026-10-23T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262706",
+		"dateTime": "2026-10-23T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262707",
+		"dateTime": "2026-10-30T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262708",
+		"dateTime": "2026-10-30T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262709",
+		"dateTime": "2026-10-30T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262710",
+		"dateTime": "2026-11-06T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262711",
+		"dateTime": "2026-11-06T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262712",
+		"dateTime": "2026-11-06T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262713",
+		"dateTime": "2026-11-13T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262714",
+		"dateTime": "2026-11-13T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262715",
+		"dateTime": "2026-11-13T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262716",
+		"dateTime": "2026-11-20T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262717",
+		"dateTime": "2026-11-20T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262718",
+		"dateTime": "2026-11-20T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262719",
+		"dateTime": "2026-11-27T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262720",
+		"dateTime": "2026-11-27T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262721",
+		"dateTime": "2026-11-27T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262722",
+		"dateTime": "2026-12-04T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262723",
+		"dateTime": "2026-12-04T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262724",
+		"dateTime": "2026-12-04T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262725",
+		"dateTime": "2026-12-11T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262726",
+		"dateTime": "2026-12-11T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262727",
+		"dateTime": "2026-12-11T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262728",
+		"dateTime": "2026-12-18T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262729",
+		"dateTime": "2026-12-18T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262730",
+		"dateTime": "2026-12-18T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262731",
+		"dateTime": "2027-01-08T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262732",
+		"dateTime": "2027-01-08T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262733",
+		"dateTime": "2027-01-08T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262734",
+		"dateTime": "2027-01-15T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262735",
+		"dateTime": "2027-01-15T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262736",
+		"dateTime": "2027-01-15T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262737",
+		"dateTime": "2027-01-22T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262738",
+		"dateTime": "2027-01-22T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262739",
+		"dateTime": "2027-01-22T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262740",
+		"dateTime": "2027-01-29T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262741",
+		"dateTime": "2027-01-29T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262742",
+		"dateTime": "2027-01-29T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262743",
+		"dateTime": "2027-02-05T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262744",
+		"dateTime": "2027-02-05T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262745",
+		"dateTime": "2027-02-05T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262746",
+		"dateTime": "2027-02-12T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262747",
+		"dateTime": "2027-02-12T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262748",
+		"dateTime": "2027-02-12T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262749",
+		"dateTime": "2027-02-19T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262750",
+		"dateTime": "2027-02-19T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262751",
+		"dateTime": "2027-02-19T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262752",
+		"dateTime": "2027-02-26T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262753",
+		"dateTime": "2027-02-26T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262754",
+		"dateTime": "2027-02-26T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262755",
+		"dateTime": "2027-03-05T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262756",
+		"dateTime": "2027-03-05T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262757",
+		"dateTime": "2027-03-05T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262758",
+		"dateTime": "2027-03-12T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262759",
+		"dateTime": "2027-03-12T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262760",
+		"dateTime": "2027-03-12T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262761",
+		"dateTime": "2027-03-19T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262762",
+		"dateTime": "2027-03-19T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262763",
+		"dateTime": "2027-03-19T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262764",
+		"dateTime": "2027-04-02T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262765",
+		"dateTime": "2027-04-02T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262766",
+		"dateTime": "2027-04-02T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262767",
+		"dateTime": "2027-04-09T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262768",
+		"dateTime": "2027-04-09T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262769",
+		"dateTime": "2027-04-09T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262770",
+		"dateTime": "2027-04-16T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262771",
+		"dateTime": "2027-04-16T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262772",
+		"dateTime": "2027-04-16T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262773",
+		"dateTime": "2027-04-23T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Patrick",
+			"color": "Yellow",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Kurtis",
+			"color": "Black",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262774",
+		"dateTime": "2027-04-23T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Adam",
+			"color": "White",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Ted",
+			"color": "Red",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262775",
+		"dateTime": "2027-04-23T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Connor",
+			"color": "Green",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Josh",
+			"color": "Blue",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "262776",
+		"dateTime": "2027-04-30T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "3rd",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "6th",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "262777",
+		"dateTime": "2027-04-30T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "4th",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "5th",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "262778",
+		"dateTime": "2027-05-07T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "1st",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Lowest Seed",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "262779",
+		"dateTime": "2027-05-07T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "2nd",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Highest seed",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "262780",
+		"dateTime": "2027-05-14T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Finals",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Finals",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	}
+]
