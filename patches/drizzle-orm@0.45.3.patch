@@ -1,0 +1,26 @@
+diff --git a/sqlite-proxy/driver.cjs b/sqlite-proxy/driver.cjs
+index 5358931a17340367497a467c2b25bda78d088cf0..dd3b646b28761b98d54d4c67339a180a12c8c81f 100644
+--- a/sqlite-proxy/driver.cjs
++++ b/sqlite-proxy/driver.cjs
+@@ -35,7 +35,7 @@ class SqliteRemoteDatabase extends import_db.BaseSQLiteDatabase {
+   }
+ }
+ function drizzle(callback, batchCallback, config) {
+-  const dialect = new import_dialect.SQLiteAsyncDialect({ casing: config?.casing });
++  const dialect = new import_dialect.SQLiteAsyncDialect({ casing: (typeof batchCallback === "object" ? batchCallback : config)?.casing });
+   let logger;
+   let cache;
+   let _batchCallback;
+diff --git a/sqlite-proxy/driver.js b/sqlite-proxy/driver.js
+index d9126bb9b5102f1f698027f21a4d659e3d0e05d7..b68da0a0402824e402ef7cc5261e2c1c919fbdff 100644
+--- a/sqlite-proxy/driver.js
++++ b/sqlite-proxy/driver.js
+@@ -11,7 +11,7 @@ class SqliteRemoteDatabase extends BaseSQLiteDatabase {
+   }
+ }
+ function drizzle(callback, batchCallback, config) {
+-  const dialect = new SQLiteAsyncDialect({ casing: config?.casing });
++  const dialect = new SQLiteAsyncDialect({ casing: (typeof batchCallback === "object" ? batchCallback : config)?.casing });
+   let logger;
+   let cache;
+   let _batchCallback;

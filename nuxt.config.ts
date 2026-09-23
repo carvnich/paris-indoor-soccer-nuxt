@@ -21,4 +21,7 @@ export default defineNuxtConfig({
 		// Local dev: files in .data/blob. Cloudflare build: R2 binding "BLOB" (bucket set in nitro.cloudflare above).
 		blob: true,
 	},
+
+	// With a Cloudflare API token in .env, `pnpm dev` uses the real D1 database (over Cloudflare's HTTP API) instead of .data/db
+	$development: { hub: { db: { dialect: "sqlite", driver: process.env.NUXT_HUB_CLOUDFLARE_API_TOKEN ? "d1-http" : undefined } } },
 });
