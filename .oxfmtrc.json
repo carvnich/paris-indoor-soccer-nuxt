@@ -1,8 +1,1 @@
-{
-	"$schema": "./node_modules/oxfmt/configuration_schema.json",
-	"useTabs": true,
-	"singleQuote": false,
-	"semi": true,
-	"printWidth": 300,
-	"ignorePatterns": ["server/db/migrations/**", "server/db/seed/**"]
-}
+{ "$schema": "./node_modules/oxfmt/configuration_schema.json", "useTabs": true, "singleQuote": false, "semi": true, "printWidth": 300, "objectWrap": "collapse", "ignorePatterns": ["server/db/migrations/**", "server/db/seed/**"] }
