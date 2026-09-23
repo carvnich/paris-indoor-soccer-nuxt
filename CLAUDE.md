@@ -2,7 +2,7 @@
 
 League site for an indoor soccer league: schedule/results, standings, playoff bracket, team rosters with player photos. Public pages are read-only; only admins sign in to enter scores and manage players.
 
-This is a full rewrite of the React + Express + MongoDB app at `../paris-indoor-soccer` (frontend on Vercel, API on Vercel, images on ImageKit). That repo is the functional reference — read it to see what a page/feature does, but don't copy its structure.
+This is a full rewrite of the React + Express + MongoDB app at `../paris-indoor-soccer` (frontend on Vercel, API on Vercel, images on ImageKit). That repo is the functional reference — read it to see what a page/feature does, but don't copy its structure. Nothing in it is a requirement: features, data shapes, logic and UI are all open to improvement or removal. "The old app did it that way" is never a reason to keep something.
 
 ## Stack
 
@@ -26,6 +26,7 @@ pnpm db:generate         # generate a migration after editing server/db/schema.t
 pnpm lint                # oxlint
 pnpm fmt                 # oxfmt (write); pnpm fmt:check to verify
 pnpm typecheck           # nuxt typecheck (vue-tsc) — also type-checks templates
+pnpm test                # node --test (test/*.test.ts; plain Node, no Nuxt)
 pnpm build:cloudflare    # production build for Workers (NITRO_PRESET=cloudflare_module)
 pnpm deploy:cloudflare   # apply D1 migrations remotely, then wrangler deploy
 ```
@@ -50,6 +51,7 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 - `server/db/seed/` — legacy match JSON used by the `db:seed` task.
 - `server/tasks/db/` — `seed` and `create-admin` Nitro tasks.
 - `server/auth.config.ts` — Better Auth server config.
+- `test/` — Node tests for pure functions (standings, playoff resolution) against the real 2024/25 season.
 
 ## Decisions (and why)
 
@@ -58,18 +60,18 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 - **Admin-only auth, built to open up later.** `disableSignUp: true`; admins come from the `db:create-admin` task. Future player registration: set `disableSignUp: false` (new users get role `user`), then add a nullable `players.user_id`. Don't add that column until it's needed.
 - **Protect every write endpoint with** `await requireUserSession(event, { user: { role: "admin" } })` — 401 when signed out, 403 for non-admins (verified). The old app only checked "logged in", not role.
 - **R2 replaces ImageKit.** No resizing/transforms were used. Nothing converts images on upload, so resize/compress in the browser before uploading (canvas → WebP, ~800px wide).
-- **Players change teams every season.** `players` is the person; `rosters` (season, player → team) says which team they were on, with one team per player per season enforced by the primary key. A team exists per season (captain name + jersey color).
+- **Players change teams every season.** `players` is the person; `rosters` (season, player → team) says which team they were on, with one team per player per season enforced by the primary key. A team exists per season (captain name + jersey color). The newest season (by name) is the current one; there's no flag to keep in sync.
 - **Playoff placeholders.** Playoff games are scheduled before teams are known: `home_team_id`/`away_team_id` are null and `home_slot`/`away_slot` hold labels like `3rd`, `Highest seed`, `Finals`. They're computed, not assigned: `resolvePlayoffs` in `server/utils/season.ts` fills them once every regular-season game has a score. Quarterfinal winners are re-ranked, so 1st plays the lower-ranked winner ("Lowest Seed"). That matches the real 2024/25 bracket; the old app's `updatePlayoffTeams` hard-coded it wrongly.
-- **Dates are local wall-clock text** (`2025-10-24T19:30:00`, no offset). Workers run in UTC — don't round-trip through `Date` on the server. Format for display with `Intl.DateTimeFormat` (moment is gone).
+- **Dates are local wall-clock text** (`2025-10-24T19:30:00`, no offset). Workers run in UTC — don't round-trip through `Date` on the server. Format for display with `Intl.DateTimeFormat` (moment is gone). "Today" uses the league's timezone (`America/Toronto`) so the server and browser agree on the current match day.
 - **TypeScript is pinned to 6.x.** TS 7 (the Go-native compiler) has no JS API, and NuxtHub's schema build (rolldown-plugin-dts) breaks with it. Revisit when the ecosystem supports TS 7.
 - **oxlint + oxfmt, not ESLint/Prettier.** Oxlint does not lint Vue `<template>` blocks yet; `nuxt typecheck` covers template type errors. Don't add ESLint to fill the gap. shadcn/lint was considered and skipped (can't see templates under Oxlint; DaisyUI components are classes, not Vue components).
 - **Styling rule:** use DaisyUI components and semantic theme colors (`primary`, `base-100`, `base-content`, …), not raw Tailwind palette colors (`red-500`) or arbitrary values (`p-[13px]`).
-- **Code style** (enforced by oxfmt): tabs, double quotes, semicolons, 300-char lines (owner prefers long single lines over wrapped blocks).
+- **Code style** (enforced by oxfmt): tabs, double quotes, semicolons, 300-char lines, objects collapsed onto one line (owner prefers long single lines over wrapped blocks).
 
 ## Conventions
 
 - **Minimal code.** Use the fewest lines, components and classes that achieve the goal. No helpers, wrapper components or abstractions for one-off use. No classes that don't change the result (e.g. values DaisyUI already sets).
-- **Commit messages:** `type: short summary`, a blank line, then one short bullet per change. Types: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`.
+- **Commit messages:** `type: short summary`, a blank line, then one short bullet per change. Types: `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `docs`, `chore`.
 
   ```
   feat: add theme picker to navbar
@@ -166,8 +168,8 @@ Push to `main` deploys; PRs get preview URLs.
 
 1. [x] Scaffold: Nuxt 4, DaisyUI, NuxtHub (db + blob), Better Auth, oxlint/oxfmt, schema + first migration, seed + create-admin tasks. Verified: seed is re-runnable, sign-up blocked, admin guard 401/403/200, Cloudflare build + `wrangler deploy --dry-run` (488 KB gzip).
 2. [x] Layout + navbar (`app/layouts/default.vue`); all DaisyUI themes + navbar picker with color previews (`theme` cookie rendered server-side; "System" = light/dark from OS)
-3. [x] Public pages: Home (match day + standings), Matches (season select, team filter), Rosters (empty until players are imported). Local DB has 2024/2025 marked current (it has scores) for UI work; re-running `db:seed` resets that.
+3. [x] Public pages: Home (match day + standings), Matches (team filter), Rosters (empty until players are imported); all three have a season select and a styled 404 page. Pages default to the newest season (2025/26 has no scores in the seed); pick 2024/2025 to see scored data.
 4. [ ] Login page + admin-only API routes; edit match score
 5. [ ] Players: add/edit with photo upload to blob (client-side resize)
-6. [ ] Import real data from MongoDB (25/26 results, players, photos)
+6. [ ] Import real data from MongoDB (25/26 results, players, photos), then drop `matches.code` (it only exists to match legacy rows on import)
 7. [ ] Cloudflare deploy (steps above) + custom domain
