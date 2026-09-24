@@ -1,12 +1,13 @@
 import { defineServerAuth } from "@nuxtjs/better-auth/config";
-import { admin } from "better-auth/plugins";
+import { admin, username } from "better-auth/plugins";
 
 export default defineServerAuth({
 	emailAndPassword: {
 		enabled: true,
-		// Admin-only for now; accounts are created with the db:create-admin task.
+		// Staff only for now; accounts are created with the db:create-user task.
 		// Set to false to open player registration (new users get the "user" role).
 		disableSignUp: true,
 	},
-	plugins: [admin()],
+	// Staff sign in with a username (e.g. "mike.bijman"). Roles: "admin" (everything) and "referee" (scores only).
+	plugins: [admin(), username({ displayUsername: false })],
 });

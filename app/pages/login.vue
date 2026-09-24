@@ -3,8 +3,8 @@
 definePageMeta({ auth: "guest" });
 
 const route = useRoute();
-const { execute, status, error } = useSignIn("email");
-const form = reactive({ email: "", password: "" });
+const { execute, status, error } = useSignIn("username");
+const form = reactive({ username: "", password: "" });
 
 async function submit() {
 	await execute(form);
@@ -15,9 +15,9 @@ async function submit() {
 <template>
 	<form class="card mx-auto max-w-sm bg-base-200" @submit.prevent="submit">
 		<fieldset class="card-body">
-			<h1 class="card-title">Admin login</h1>
-			<label class="label" for="email">Email</label>
-			<input id="email" v-model="form.email" type="email" class="input w-full" autocomplete="username" required />
+			<h1 class="card-title">Staff login</h1>
+			<label class="label" for="username">Username</label>
+			<input id="username" v-model="form.username" class="input w-full" autocomplete="username" autocapitalize="none" required />
 			<label class="label" for="password">Password</label>
 			<input id="password" v-model="form.password" type="password" class="input w-full" autocomplete="current-password" required />
 			<p v-if="error" class="text-error">{{ error.message }}</p>
