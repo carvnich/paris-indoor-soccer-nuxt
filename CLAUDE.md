@@ -1,6 +1,6 @@
 # Paris Indoor Soccer (Nuxt rewrite)
 
-League site for an indoor soccer league: schedule/results, standings, playoff bracket, team rosters with player photos. Public pages are read-only; only admins sign in to enter scores and manage players.
+League site for an indoor soccer league: schedule/results, standings, playoff bracket, team rosters with player photos. Public pages are read-only; only staff sign in: referees enter scores, admins also manage players.
 
 This is a full rewrite of the React + Express + MongoDB app at `../paris-indoor-soccer` (frontend on Vercel, API on Vercel, images on ImageKit). That repo is the functional reference — read it to see what a page/feature does, but don't copy its structure. Nothing in it is a requirement: features, data shapes, logic and UI are all open to improvement or removal. "The old app did it that way" is never a reason to keep something.
 
@@ -13,8 +13,8 @@ This is a full rewrite of the React + Express + MongoDB app at `../paris-indoor-
 | Framework | Nuxt 4 / Vue 3.5 / Vite 8 (Vite comes with Nuxt — never add it directly)                                  |
 | UI        | Tailwind CSS 4 + DaisyUI 5                                                                                |
 | Data      | NuxtHub (`@nuxthub/core`) + Drizzle ORM. Cloudflare D1 (dev reaches it over HTTP; SQLite without a token) |
-| Files     | NuxtHub blob: `.data/blob` locally, Cloudflare R2 in production                                           |
-| Auth      | Better Auth via `@nuxtjs/better-auth`, email + password, `admin` plugin for roles                         |
+| Files     | NuxtHub blob: Cloudflare R2 (dev: `.data/blob`, or R2 over its S3 API with `S3_*` keys in `.env`)         |
+| Auth      | Better Auth via `@nuxtjs/better-auth`, username + password (`username` plugin), `admin` plugin for roles  |
 | Lint/fmt  | oxlint + oxfmt (not ESLint/Prettier)                                                                      |
 | Hosting   | Cloudflare Workers, deployed from GitHub via Workers Builds                                               |
 
@@ -35,14 +35,14 @@ Nitro tasks run through the dev server (the Nuxt CLI has no `task run`):
 
 ```sh
 curl -X POST localhost:3000/_nitro/tasks/db:seed
-curl -X POST localhost:3000/_nitro/tasks/db:create-admin \
+curl -X POST localhost:3000/_nitro/tasks/db:create-user \
   -H 'content-type: application/json' \
-  -d '{"payload":{"name":"…","email":"…","password":"…"}}'
+  -d '{"payload":{"name":"…","username":"first.last","password":"…","role":"admin"}}'   # or "referee"
 ```
 
 Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` is running — it rebuilds `.nuxt` and restarts the dev server. On D1 (safe while dev runs): `pnpm exec wrangler d1 execute paris-indoor-soccer-nuxt --remote --command "select …"` (add `--json` for parseable output).
 
-**Dev against the real D1:** with `NUXT_HUB_CLOUDFLARE_ACCOUNT_ID`, `NUXT_HUB_CLOUDFLARE_API_TOKEN` and `NUXT_HUB_CLOUDFLARE_DATABASE_ID` in `.env`, `pnpm dev` uses the `d1-http` driver (see `$development` in `nuxt.config.ts`). The tasks above, sign-in and score edits then read and write production data, and starting dev applies pending migrations to production. Blank the token to go back to `.data/db`. Photos (blob) stay local either way. Each query is an HTTP round trip, so pages load slower than on local SQLite. `patches/drizzle-orm@0.45.3.patch` makes this work: drizzle's `sqlite-proxy` (which `d1-http` uses) ignores `casing` when config is the second argument, so every camelCase column failed. Drop the patch once drizzle fixes it (still present in 0.45.3).
+**Dev against the real D1:** with `NUXT_HUB_CLOUDFLARE_ACCOUNT_ID`, `NUXT_HUB_CLOUDFLARE_API_TOKEN` and `NUXT_HUB_CLOUDFLARE_DATABASE_ID` in `.env`, `pnpm dev` uses the `d1-http` driver (see `$development` in `nuxt.config.ts`). The tasks above, sign-in and score edits then read and write production data, and starting dev applies pending migrations to production. Blank the token to go back to `.data/db`. Photos follow the same idea: with `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_BUCKET=paris-indoor-soccer-nuxt-photos` and `S3_ENDPOINT=https://<account id>.r2.cloudflarestorage.com` (an R2 API token, Object Read & Write on that bucket) in `.env`, dev reads and writes the real bucket through NuxtHub's S3 driver (`aws4fetch`); without them, `.data/blob`. Keep D1 and R2 together (both on or both off), or players end up pointing at photos in the other store. NuxtHub would pick S3 in any build where those keys are set, so `$production` in `nuxt.config.ts` pins the R2 binding (otherwise a local `pnpm build:cloudflare` bakes the keys into `.output`). Each query is an HTTP round trip, so pages load slower than on local SQLite. `patches/drizzle-orm@0.45.3.patch` makes this work: drizzle's `sqlite-proxy` (which `d1-http` uses) ignores `casing` when config is the second argument, so every camelCase column failed. Drop the patch once drizzle fixes it (still present in 0.45.3).
 
 ## Layout
 
@@ -52,7 +52,7 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 - `server/db/migrations/sqlite/` — generated by `pnpm db:generate`; commit them, never hand-edit.
 - `server/db/seed/` — match JSON for the `db:seed` task: the 2026/27 schedule plus the legacy seasons (see Data migration).
 - `patches/` — pnpm patch for drizzle-orm (see "Dev against the real D1").
-- `server/tasks/db/` — `seed` and `create-admin` Nitro tasks.
+- `server/tasks/db/` — `seed` and `create-user` Nitro tasks.
 - `server/auth.config.ts` — Better Auth server config.
 - `test/` — Node tests for pure functions (standings, playoff resolution) against the real 2024/25 season.
 
@@ -60,10 +60,12 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 
 - **SQL over MongoDB.** Owner prefers relational tables. D1 is SQLite, so the schema also runs on Turso if hosting ever changes.
 - **Cloudflare over Vercel.** Vite's company (VoidZero) is part of Cloudflare now; D1/R2/Workers on one platform; free tier covers this site.
-- **Admin-only auth, built to open up later.** `disableSignUp: true`; admins come from the `db:create-admin` task. Future player registration: set `disableSignUp: false` (new users get role `user`), then add a nullable `players.user_id`. Don't add that column until it's needed.
-- **Protect every write endpoint with** `await requireUserSession(event, { user: { role: "admin" } })` — 401 when signed out, 403 for non-admins (verified). The old app only checked "logged in", not role.
+- **Staff-only auth, built to open up later.** `disableSignUp: true`; accounts come from the `db:create-user` task. Staff sign in with a username (`first.last`, case-insensitive); Better Auth still requires an email, so the task stores `<username>@paris-indoor-soccer.invalid` (nobody types it, nothing is sent). Two roles: `admin` (everything) and `referee` (scores only). The owner sets and manages the passwords; there's no change-password page. Passwords set by the task skip Better Auth's 8-character minimum (it only applies to sign-up and password changes). Future player registration: set `disableSignUp: false` (new users get role `user`), then add a nullable `players.user_id`. Don't add that column until it's needed.
+- **Better Auth stays, even with owner-managed passwords.** `nuxt-auth-utils` (own `users` table, sealed-cookie sessions) was considered: about the same amount of code, no fake emails, but no server-side revocation of one person's session and no built-in sign-in rate limit. Kept Better Auth because the deferred team-lead/player accounts (sign-up, real emails, password resets, self-delete) are what it's for. Revisit only if player accounts are dropped for good.
+- **Protect every write endpoint with** `await requireUserSession(event, { user: { role: "admin" } })` — 401 when signed out, 403 for other roles (verified). Score edits (`PATCH /api/matches/:id`) use `role: ["admin", "referee"]`. The old app only checked "logged in", not role.
 - **R2 replaces ImageKit.** No resizing/transforms were used. Nothing converts images on upload, so resize/compress in the browser before uploading (canvas → WebP, ~800px wide).
-- **Players change teams every season.** `players` is the person; `rosters` (season, player → team) says which team they were on, with one team per player per season enforced by the primary key. A team exists per season (captain name + jersey color). The newest season (by name) is the current one; there's no flag to keep in sync.
+- **Players change teams every season.** `players` is the person; `rosters` (season, player → team) says which team they were on, with one team per player per season enforced by the primary key. A team exists per season (captain name + jersey color). The newest season (by name) is the current one; there's no flag to keep in sync. Season ids are only row numbers (they differ between local SQLite and D1): pages link by name, `?season=2026-2027`.
+- **Player admin lives on the Rosters page** (one dialog for add and edit). Adding can pick a returning player (anyone not on a team that season) instead of typing a new name. "Remove" takes a player off one season; a player left with no seasons is deleted with their photo. Photos are one per person, stored under a random key (`players/photo-xxxx.webp`) and served by `/photos/**` with a year-long immutable cache. The browser resizes to 800px WebP; Safari can't encode WebP, so it sends JPEG.
 - **Playoff placeholders.** Playoff games are scheduled before teams are known: `home_team_id`/`away_team_id` are null and `home_slot`/`away_slot` hold labels like `3rd`, `Highest seed`, `Finals`. They're computed, not assigned: `resolvePlayoffs` in `server/utils/season.ts` fills them once every regular-season game has a score. Quarterfinal winners are re-ranked, so 1st plays the lower-ranked winner ("Lowest Seed"). That matches the real 2024/25 bracket; the old app's `updatePlayoffTeams` hard-coded it wrongly.
 - **Dates are local wall-clock text** (`2025-10-24T19:30:00`, no offset). Workers run in UTC — don't round-trip through `Date` on the server. Format for display with `Intl.DateTimeFormat` (moment is gone). "Today" uses the league's timezone (`America/Toronto`) so the server and browser agree on the current match day.
 - **TypeScript is pinned to 6.x.** TS 7 (the Go-native compiler) has no JS API, and NuxtHub's schema build (rolldown-plugin-dts) breaks with it. Revisit when the ecosystem supports TS 7.
@@ -161,10 +163,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ## Deployment (in progress: D1 is live, the Worker isn't deployed yet)
 
 1. ~~Create the GitHub repo and push.~~ Done: https://github.com/carvnich/paris-indoor-soccer-nuxt
-2. ~~`wrangler login`, `wrangler d1 create`~~ Done: D1 `paris-indoor-soccer-nuxt` (ENAM), id `1d55e784-eeac-46ca-8988-197983ccc9fa`, migrations applied and 2026/27 seeded. Still to do: `wrangler r2 bucket create paris-indoor-soccer-photos`.
+2. ~~`wrangler login`, `wrangler d1 create`~~ Done: D1 `paris-indoor-soccer-nuxt` (ENAM), id `1d55e784-eeac-46ca-8988-197983ccc9fa`, migrations applied and 2026/27 seeded. R2 bucket `paris-indoor-soccer-nuxt-photos` (ENAM) created.
 3. In the Cloudflare dashboard: Workers → Create → Import a repository. Build command `pnpm build:cloudflare`, deploy command `pnpm deploy:cloudflare`. Build variable `NUXT_HUB_CLOUDFLARE_DATABASE_ID=1d55e784-eeac-46ca-8988-197983ccc9fa`.
 4. Worker secrets: `NUXT_BETTER_AUTH_SECRET` (`openssl rand -hex 32`), `NUXT_PUBLIC_SITE_URL=https://<domain>`.
-5. Load production data: point dev at the real D1 (see Commands), run `pnpm dev` (applies the migrations), then run the `db:seed` and `db:create-admin` tasks. Seed done (2026/27); admin not created yet. An admin created this way signs in on the Worker too (the password hash doesn't depend on `NUXT_BETTER_AUTH_SECRET`). The build output was also verified end to end on workerd against a local D1 (`wrangler d1 … --local --persist-to <dir>`, then `wrangler dev --config .output/server/wrangler.json --persist-to <dir>`).
+5. Load production data: point dev at the real D1 (see Commands), run `pnpm dev` (applies the migrations), then run the `db:seed` and `db:create-user` tasks. Seed done (2026/27); staff accounts created (admins `nicholas.carvalho`, `kurtis.cruickshank`; referees `mike.bijman`, `claire.osmon`). An account created this way signs in on the Worker too (the password hash doesn't depend on `NUXT_BETTER_AUTH_SECRET`). The build output was also verified end to end on workerd against a local D1 (`wrangler d1 … --local --persist-to <dir>`, then `wrangler dev --config .output/server/wrangler.json --persist-to <dir>`).
 6. Custom domain under Workers → Custom Domains, then retire both Vercel projects.
 
 Push to `main` deploys; PRs get preview URLs. Sign-in on a preview URL fails: Better Auth only trusts `NUXT_PUBLIC_SITE_URL` as an origin. Add `trustedOrigins` only if admin testing on previews turns out to be needed.
@@ -177,24 +179,29 @@ Push to `main` deploys; PRs get preview URLs. Sign-in on a preview URL fails: Be
    - [x] Full-codebase review applied: matches index, parallel queries, `findSeason` + `useSeason` shared by the season routes/pages, one navbar menu for desktop and mobile, league timezone for "today", node tests (`pnpm test`), `objectWrap: "collapse"`. Still to eyeball in a browser: navbar at mobile width and the error page.
 4. [x] Login page (`/login`, `auth: "guest"`, honours `?redirect=`) + `PATCH /api/matches/:id` (admin; score + start time, both scores empty = not played). Admins get an Edit button on every `MatchRow` (Home and Matches) that opens a dialog, then `refreshNuxtData()` so standings/playoffs recompute. Verified: 401/403/400/404/200 via curl, login + edit + sign-out in headless Chromium, and the same on workerd + local D1 (Deployment step 5).
    - [x] Better Auth over D1 verified (create admin, sign in, admin session, score write), after the drizzle casing patch.
-5. [ ] Players: add/edit with photo upload to blob (client-side resize)
+   - [x] Staff accounts: username sign-in, `referee` role (scores only), `db:create-user`; four accounts on D1. Verified on local SQLite (sign-in, 401/403 by role) and on D1 + R2 in headless Chromium (referee sees score Edit but no roster controls; an admin's photo upload lands in R2 as 800px WebP and is deleted from R2 on remove).
+5. [x] Players: add/edit/remove on the Rosters page, returning players, photo upload to blob (client-side resize). Verified against local SQLite + fs blob: 401/400/404 via curl, photo replace/remove deletes the old file, and add (1024px JPEG → 800px WebP) / edit / move team / remove in headless Chromium.
 6. [ ] Import real data from MongoDB (25/26 results, players, photos), then drop `matches.code` (it only exists to match legacy rows on import)
 7. [ ] Cloudflare deploy (steps above) + custom domain.
    - [x] D1 created, `pnpm dev` runs against it (`d1-http`), migrations applied, 2026/27 season seeded (6 teams, 75 regular + 5 playoff games, Oct 16 2026 → May 14 2027). The 7:30 "Drop-In" on finals night was left out (not a league game).
-   - [ ] R2 bucket, Workers Builds import, Worker secrets, custom domain (steps 2–6).
+   - [x] R2 bucket created.
+   - [ ] Workers Builds import, Worker secrets, custom domain (steps 3–6).
 
 ### Next session
 
-- **Admin account:** D1 has no users (test accounts were deleted). Create yours with the `db:create-admin` task while dev points at D1.
-- **Rotate the Cloudflare API token.** The current one (`NUXT_HUB_CLOUDFLARE_API_TOKEN` in `.env`, named `paris-indoor-soccer-d1-dev`, Account → D1 → Edit) showed up in a session transcript. Only `.env` needs the new value.
-- **Step 5 (players)** needs blob: dev writes photos to `.data/blob` even when the DB is D1, and the R2 bucket doesn't exist yet.
+- **Next up:** step 6 (needs a `mongoexport` of the `matches` and players collections from the owner, plus the player photos from ImageKit) or step 7 (Workers Builds import, secrets, domain). Ask the owner which first.
+- **Rotate the Cloudflare API token before launch** (owner's call to wait until then). The current one (`NUXT_HUB_CLOUDFLARE_API_TOKEN` in `.env`, named `paris-indoor-soccer-d1-dev`, Account → D1 → Edit) showed up in a session transcript. Only `.env` needs the new value.
+- **Rotate the R2 token too** (`paris-indoor-soccer-nuxt-dev`, a User API token, Object Read & Write on the bucket): its keys were also pasted into a session transcript. Only the `S3_*` values in `.env` change.
+- **Later (owner deferred):** team-lead and player accounts. Sketch: team lead = `teams.lead_user_id` per season (not a role); players link via nullable `players.user_id`; open sign-up with real emails needs an email service for password resets.
 
 ### Session gotchas
 
 - Every command needs `source ~/.nvm/nvm.sh && nvm use` first (the default Homebrew Node is too old for Nuxt 4.5).
 - Only one `pnpm dev` can run; a stale one blocks with "Another Nuxt dev is already running" (kill its PID). `NUXT_IGNORE_LOCK=1` lets `pnpm build:cloudflare` run alongside it. `pkill -f "nuxt dev"` doesn't match the process (it's `nuxt.mjs dev`); use `pkill -f "nuxt.mjs dev"`.
-- **Dev writes to production.** With the token in `.env`, tasks, test sign-ins and score edits hit the live D1. Delete test users afterwards (`session`, `account`, then `user` rows) and put back any scores you changed.
-- Browser checks: `npm i playwright` in a scratch dir outside the repo works (Chromium is already in `~/Library/Caches/ms-playwright`). Wait for `networkidle` before clicking, or the form submits before hydration. Set the `theme` cookie to screenshot a specific theme.
+- **Dev writes to production.** With the token and `S3_*` keys in `.env`, tasks, test sign-ins, score edits and photo uploads hit the live D1 and R2. Use the real staff accounts for testing, delete their test sessions afterwards (`delete from session`), remove test players through the UI (that deletes their photo from R2), and put back any scores you changed. Check R2 with `pnpm exec wrangler r2 object get paris-indoor-soccer-nuxt-photos/<key> --remote --file /tmp/x`.
+- Browser checks: `npm i playwright` in a scratch dir outside the repo works (Chromium is already in `~/Library/Caches/ms-playwright`). Wait for `networkidle` before clicking, or the form submits before hydration. Set the `theme` cookie to screenshot a specific theme. After signing in, wait for the "Sign out" text, not `waitForURL("**/matches")` (that also matches `/login?redirect=/matches`).
+- `nuxt typecheck` "Excessive stack depth" (TS2321) on a typed `$fetch`: happens when its promise is passed to a callback typed `() => Promise<unknown>` (use `() => unknown`) or the URL template contains a possibly-undefined value (use `!`).
+- `ensureBlob` errors carry `message`, not `statusMessage`; the Rosters dialog reads `e.data.message`.
 - "pnpm is running through Node.js because the script that installs its native binary was skipped" is harmless (it's about how pnpm itself was installed).
 - `curl` gets JSON error bodies; add `-H "Accept: text/html"` to see the rendered error page.
 - `pnpm db:generate` after schema edits; the dev server applies migrations on start (restart it).
