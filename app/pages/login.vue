@@ -13,9 +13,9 @@ async function submit() {
 </script>
 
 <template>
-	<form class="card mx-auto max-w-sm bg-base-200" @submit.prevent="submit">
+	<form class="card mx-auto mt-8 max-w-sm bg-base-100 shadow-xl" @submit.prevent="submit">
 		<fieldset class="card-body">
-			<h1 class="card-title">Staff login</h1>
+			<h1 class="mb-2 text-3xl font-bold">Staff login</h1>
 			<label class="label" for="username">Username</label>
 			<input id="username" v-model="form.username" class="input w-full" autocomplete="username" autocapitalize="none" required />
 			<label class="label" for="password">Password</label>

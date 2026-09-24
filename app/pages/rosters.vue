@@ -65,38 +65,39 @@ function remove() {
 </script>
 
 <template>
-	<div v-if="data" class="flex flex-col gap-4">
+	<div v-if="data" class="flex flex-col gap-6">
 		<div class="flex items-center justify-between gap-2">
-			<h1 class="text-2xl font-bold">Rosters</h1>
+			<h1 class="text-4xl font-bold">Rosters</h1>
 			<SeasonSelect :seasons="data.seasons" :season-id="data.season.id" />
 		</div>
 
-		<div role="tablist" class="tabs tabs-box">
-			<button v-for="t in data.teams" :key="t.id" role="tab" class="tab gap-2" :class="{ 'tab-active': teamId === t.id }" @click="teamId = t.id">
-				<TeamShirt :color="t.color" />
-				<span class="hidden md:inline">{{ t.name }}</span>
-			</button>
-		</div>
+		<div class="flex flex-col gap-6 md:flex-row md:items-start">
+			<div role="tablist" class="tabs tabs-box shrink-0 bg-transparent shadow-none md:w-48 md:flex-col">
+				<button v-for="t in data.teams" :key="t.id" role="tab" class="tab justify-start gap-2" :class="{ 'tab-active shadow-md': teamId === t.id }" @click="teamId = t.id">
+					<TeamShirt :color="t.color" />
+					<span class="hidden md:inline">{{ t.name }}</span>
+				</button>
+			</div>
 
-		<button v-if="user?.role === 'admin' && teamId" class="btn btn-primary self-end" @click="open()">Add player</button>
-
-		<div class="grid gap-4 md:grid-cols-2">
-			<div v-for="p in players" :key="p.id" class="flex items-center gap-4 rounded-box bg-base-200 p-4">
-				<div class="avatar" :class="{ 'avatar-placeholder': !p.imageKey }">
-					<div class="w-16 rounded-full bg-neutral text-neutral-content">
-						<img v-if="p.imageKey" :src="`/photos/${p.imageKey}`" :alt="`${p.firstName} ${p.lastName}`" loading="lazy" />
-						<span v-else>{{ p.firstName[0] }}{{ p.lastName[0] }}</span>
+			<div class="flex flex-1 flex-col gap-6">
+				<button v-if="user?.role === 'admin' && teamId" class="btn btn-primary self-end" @click="open()">Add player</button>
+				<div class="grid grid-cols-2 gap-6 sm:grid-cols-3">
+					<div v-for="p in players" :key="p.id" class="flex flex-col gap-3">
+						<img v-if="p.imageKey" :src="`/photos/${p.imageKey}`" :alt="`${p.firstName} ${p.lastName}`" loading="lazy" class="aspect-square w-full rounded-box object-cover shadow-xl" />
+						<div v-else class="grid aspect-square place-items-center rounded-box bg-base-200 text-3xl shadow-xl">{{ p.firstName[0] }}{{ p.lastName[0] }}</div>
+						<div class="flex items-center justify-between gap-2">
+							<span class="font-medium">{{ p.firstName }} {{ p.lastName }}</span>
+							<button v-if="user?.role === 'admin'" class="btn btn-ghost btn-xs" @click="open(p)">Edit</button>
+						</div>
 					</div>
 				</div>
-				<span class="flex-1 text-lg">{{ p.firstName }} {{ p.lastName }}</span>
-				<button v-if="user?.role === 'admin'" class="btn btn-ghost btn-sm" @click="open(p)">Edit</button>
+				<p v-if="!players.length" class="py-8 text-center opacity-60">No players on this team yet.</p>
 			</div>
 		</div>
-		<p v-if="!players.length" class="py-8 text-center opacity-60">No players on this team yet.</p>
 
 		<dialog v-if="user?.role === 'admin'" ref="dialog" class="modal">
 			<form class="modal-box flex flex-col gap-2" @submit.prevent="save">
-				<h3 class="text-lg font-bold">{{ player?.teamId ? "Edit player" : "Add player" }}</h3>
+				<h3 class="text-xl font-bold">{{ player?.teamId ? "Edit player" : "Add player" }}</h3>
 				<select v-if="!player?.teamId" v-model="form.id" class="select w-full" aria-label="Returning player" @change="Object.assign(form, { firstName: player?.firstName ?? '', lastName: player?.lastName ?? '' })">
 					<option :value="undefined">New player</option>
 					<option v-for="p in returning" :key="p.id" :value="p.id">{{ p.firstName }} {{ p.lastName }}</option>

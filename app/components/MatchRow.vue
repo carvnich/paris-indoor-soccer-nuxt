@@ -32,14 +32,14 @@ async function save() {
 </script>
 
 <template>
-	<div class="flex items-center gap-2 py-1">
+	<div class="flex items-center gap-">
 		<div class="flex flex-1 items-center justify-end gap-2 text-right">
 			{{ home?.name ?? match.homeSlot }}
 			<TeamShirt v-if="home" :color="home.color" />
 		</div>
 		<div class="w-24 text-center">
-			<div v-if="played" class="text-lg font-bold">{{ match.homeScore }} - {{ match.awayScore }}</div>
-			<div :class="played ? 'text-xs opacity-60' : 'font-semibold'">{{ formatTime(match.startsAt) }}</div>
+			<div v-if="played" class="text-2xl font-bold">{{ match.homeScore }} - {{ match.awayScore }}</div>
+			<div :class="played ? 'text-sm opacity-60' : 'font-semibold'">{{ formatTime(match.startsAt) }}</div>
 			<button v-if="canEdit" class="btn btn-ghost btn-xs" @click="edit">Edit</button>
 		</div>
 		<div class="flex flex-1 items-center gap-2">
