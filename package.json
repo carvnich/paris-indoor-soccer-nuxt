@@ -31,6 +31,7 @@
 		"vue-router": "^5.3.1"
 	},
 	"devDependencies": {
+		"aws4fetch": "^1.0.20",
 		"drizzle-kit": "^0.31.11",
 		"oxfmt": "^0.70.0",
 		"oxlint": "^1.85.0",
