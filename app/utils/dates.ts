@@ -11,6 +11,7 @@ export const today = () => new Date().toLocaleDateString("en-CA", { timeZone: "A
 export const groupByDay = <T extends { startsAt: string }>(matches: T[]) => Object.entries(Object.groupBy(matches, (m) => m.startsAt.slice(0, 10))) as [string, T[]][];
 // Index of the next day to play, or the last day once the season is over
 export const nextDayIndex = (days: [string, unknown][]) => {
-	const i = days.findIndex(([day]) => day >= today());
+	const now = today();
+	const i = days.findIndex(([day]) => day >= now);
 	return i === -1 ? days.length - 1 : i;
 };

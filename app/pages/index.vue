@@ -1,10 +1,13 @@
 <script setup lang="ts">
 const data = await useSeason("/api/season");
 
-// Start on the next match day to play
+// Start on the next match day to play, again after a season change
 const days = computed(() => groupByDay(data.value?.matches ?? []));
 const dayIndex = ref(nextDayIndex(days.value));
-watch(days, () => (dayIndex.value = nextDayIndex(days.value)));
+watch(
+	() => data.value?.season.id,
+	() => (dayIndex.value = nextDayIndex(days.value)),
+);
 const day = computed(() => days.value[dayIndex.value]);
 </script>
 

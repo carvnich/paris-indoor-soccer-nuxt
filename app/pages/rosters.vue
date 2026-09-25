@@ -2,7 +2,10 @@
 const data = await useSeason("/api/rosters");
 // First team selected, again after a season change
 const teamId = ref(data.value?.teams[0]?.id);
-watch(data, () => (teamId.value = data.value?.teams[0]?.id));
+watch(
+	() => data.value?.season.id,
+	() => (teamId.value = data.value?.teams[0]?.id),
+);
 const players = computed(() => data.value?.players.filter((p) => p.teamId === teamId.value) ?? []);
 
 // Admins add and edit players in one dialog. Adding can pick a returning player (not on a team this season) instead of a new name.
@@ -13,6 +16,10 @@ const error = ref("");
 const player = computed(() => data.value?.players.find((p) => p.id === form.id));
 const returning = computed(() => data.value?.players.filter((p) => p.teamId === null) ?? []);
 const preview = computed(() => (form.photo ? URL.createObjectURL(form.photo) : !form.removePhoto && player.value?.imageKey ? `/photos/${player.value.imageKey}` : null));
+// Each picked photo's preview URL keeps the image in memory until revoked
+watch(preview, (_, old) => {
+	if (old?.startsWith("blob:")) URL.revokeObjectURL(old);
+});
 
 function open(p?: { id: number; firstName: string; lastName: string }) {
 	Object.assign(form, { id: p?.id, firstName: p?.firstName ?? "", lastName: p?.lastName ?? "", teamId: teamId.value, photo: null, removePhoto: false });
@@ -26,6 +33,8 @@ async function resize(file: File) {
 	const scale = Math.min(1, 800 / image.width);
 	const canvas = new OffscreenCanvas(Math.round(image.width * scale), Math.round(image.height * scale));
 	canvas.getContext("2d")!.drawImage(image, 0, 0, canvas.width, canvas.height);
+	// A full-size phone photo holds ~50MB decoded; free it now rather than at garbage collection
+	image.close();
 	const webp = await canvas.convertToBlob({ type: "image/webp", quality: 0.8 });
 	return webp.type === "image/webp" ? webp : canvas.convertToBlob({ type: "image/jpeg", quality: 0.8 });
 }

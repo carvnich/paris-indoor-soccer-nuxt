@@ -1,4 +1,4 @@
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 // All seasons (newest first) and the one named in the URL ("2026-2027" = "2026/2027"), or the newest when none is given. 404 if it doesn't exist.
 export async function findSeason(slug?: unknown) {
@@ -7,3 +7,12 @@ export async function findSeason(slug?: unknown) {
 	if (!season) throw createError({ statusCode: 404, statusMessage: "Season not found" });
 	return { season, seasons };
 }
+
+// The same season's id as a subquery, so a route's own queries run alongside findSeason instead of after it (one database round trip, not two)
+export const seasonId = (slug?: unknown) =>
+	db
+		.select({ id: schema.seasons.id })
+		.from(schema.seasons)
+		.where(slug ? eq(schema.seasons.name, String(slug).replace("-", "/")) : undefined)
+		.orderBy(desc(schema.seasons.name))
+		.limit(1);
