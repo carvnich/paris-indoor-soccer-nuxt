@@ -172,16 +172,16 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - **Team colours** are CSS colour names. `TeamShirt` outlines every shirt in `base-content`, so `White` shows on light and dark themes. Adam's team is really White: the legacy files say `Grey` (a visibility workaround), so change that on import. The seed upserts teams by (season, colour), so changing a colour on a seeded team means `update teams set color = …` on D1 plus editing the JSON. Re-seeding with only the JSON changed adds a duplicate team.
 - **Players exist only in MongoDB** (`rosterData.js` in the old repo is mock data). They need an export plus an import step, and photos must be re-uploaded from ImageKit to R2. Players have no season in Mongo — their team assignment per season must be decided on import.
 
-## Deployment (in progress: D1 is live, the Worker isn't deployed yet)
+## Deployment (live at https://paris-indoor-soccer-nuxt.nicholasjacarvalho.workers.dev; custom domain still to do)
 
 1. ~~Create the GitHub repo and push.~~ Done: https://github.com/carvnich/paris-indoor-soccer-nuxt
 2. ~~`wrangler login`, `wrangler d1 create`~~ Done: D1 `paris-indoor-soccer-nuxt` (ENAM), id `1d55e784-eeac-46ca-8988-197983ccc9fa`, migrations applied and 2026/27 seeded. R2 bucket `paris-indoor-soccer-nuxt-photos` (ENAM) created.
 3. In the Cloudflare dashboard: Workers → Create → Import a repository. Build command `pnpm build:cloudflare`, deploy command `pnpm deploy:cloudflare`. No build variables: the D1 id is in `$production` in `nuxt.config.ts` (a missing build variable once left the binding out of `wrangler.json`).
-4. Worker secrets: `NUXT_BETTER_AUTH_SECRET` (`openssl rand -hex 32`), `NUXT_PUBLIC_SITE_URL=https://<domain>`. Type Secret, not Text: `wrangler deploy` removes dashboard Text variables that aren't in the config.
+4. Worker secrets: `NUXT_BETTER_AUTH_SECRET` (`openssl rand -hex 32`), `NUXT_PUBLIC_SITE_URL=https://<domain>`. Type Secret, not Text: `wrangler deploy` removes dashboard Text variables that aren't in the config. The site URL must be exact (no quotes, spaces or trailing slash): a bad value made every auth request 500 with "Invalid siteUrl" in `wrangler tail`, which the browser showed as `NUXT_E1005` plus a hydration mismatch. It was set with `printf '%s' "https://…" | pnpm exec wrangler secret put NUXT_PUBLIC_SITE_URL --name paris-indoor-soccer-nuxt`; change it when the custom domain goes live.
 5. Load production data: point dev at the real D1 (see Commands), run `pnpm dev` (applies the migrations), then run the `db:seed` and `db:create-user` tasks. Seed done (2026/27); staff accounts created (admins `nicholas.carvalho`, `kurtis.cruickshank`; referees `mike.bijman`, `claire.osmon`). An account created this way signs in on the Worker too (the password hash doesn't depend on `NUXT_BETTER_AUTH_SECRET`). The build output was also verified end to end on workerd against a local D1 (`wrangler d1 … --local --persist-to <dir>`, then `wrangler dev --config .output/server/wrangler.json --persist-to <dir>`).
 6. Custom domain under Workers → Custom Domains, then retire both Vercel projects.
 
-Push to `main` deploys; PRs get preview URLs. Sign-in on a preview URL fails: Better Auth only trusts `NUXT_PUBLIC_SITE_URL` as an origin. Add `trustedOrigins` only if admin testing on previews turns out to be needed.
+Push to `main` deploys (Workers Builds, about 1.5 minutes; logs under the Worker's Deployments tab, runtime errors with `pnpm exec wrangler tail paris-indoor-soccer-nuxt`). Schema changes need one extra step: start `pnpm dev` against D1 once before pushing (see "Only NuxtHub applies migrations"). Preview builds would give branches their own URLs, but they'd share the production D1 and R2; leave them off unless they're needed. Sign-in on a preview URL fails: Better Auth only trusts `NUXT_PUBLIC_SITE_URL` as an origin. Add `trustedOrigins` only if admin testing on previews turns out to be needed.
 
 ## Progress
 
@@ -197,8 +197,8 @@ Push to `main` deploys; PRs get preview URLs. Sign-in on a preview URL fails: Be
 7. [ ] Cloudflare deploy (steps above) + custom domain.
    - [x] D1 created, `pnpm dev` runs against it (`d1-http`), migrations applied, 2026/27 season seeded (6 teams, 75 regular + 5 playoff games, Oct 16 2026 → May 14 2027). The 7:30 "Drop-In" on finals night was left out (not a league game).
    - [x] R2 bucket created.
-   - [x] Workers Builds import and Worker secrets (steps 3–4). The first deploy failed without the D1 binding (fixed by the id in `nuxt.config.ts`).
-   - [ ] First successful deploy, custom domain (steps 5–6).
+   - [x] Workers Builds import, Worker secrets, first deploy (2026-09-25). Two failed deploys first: no D1 binding (fixed by the id in `nuxt.config.ts`), then wrangler re-running migrations (fixed by dropping it from `deploy:cloudflare`). Verified live: all pages 200 with no console errors at 390px, session 200, signed-out PATCH 401, wrong password rejected. A real staff sign-in is still for the owner to try.
+   - [ ] Custom domain, then retire the Vercel projects (step 6).
 8. [ ] UI redesign (see "Look" under Decisions).
    - [x] Layout (grey page, padded navbar, side menu) and Home on desktop (large standings table; fixed-width match-day card with an overlapping black date square).
    - [x] Mobile navbar, menu panel and tab row; Home on mobile (see "Home on mobile" under Decisions). Committed in `0c4cce7`.
@@ -210,7 +210,7 @@ Push to `main` deploys; PRs get preview URLs. Sign-in on a preview URL fails: Be
 
 ### Next session
 
-- **Next up:** step 8, Matches on mobile in the Home style. The owner wants the site live: the repo is imported into Workers Builds and the Worker secrets are set; check that the deploy succeeds and the `workers.dev` URL works (pages, staff sign-in). Step 6 needs a `mongoexport` of the `matches` and players collections from the owner, plus the player photos from ImageKit.
+- **Next up:** step 8, Matches on mobile in the Home style. The site is live on `workers.dev`; the custom domain (Deployment step 6) is the owner's call. Step 6 needs a `mongoexport` of the `matches` and players collections from the owner, plus the player photos from ImageKit.
 - **Owner reviews UI changes themselves** on their running dev server (HMR picks up edits) and reports back; don't take screenshots to check styling unless asked. To check fit (overflow, row heights, font sizes), measure in Playwright instead: `scrollWidth` vs `clientWidth`, `offsetHeight`, `getComputedStyle`, at 360/375/390px wide.
 - **The owner edits the same files by hand between requests.** Re-read a file before editing it, and treat their edits as the current state.
 - **Tokens rotated (2026-09-25):** the D1 API token (`paris-indoor-soccer-d1-dev`) and the R2 keys (`paris-indoor-soccer-nuxt-dev`), after both showed up in session transcripts. The new values are only in `.env`; the Worker uses bindings and needs neither.
