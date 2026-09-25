@@ -1,8 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
 
-// Set in Cloudflare Workers Builds (and optionally .env) once the D1 database exists.
-const cloudflareDatabaseId = process.env.NUXT_HUB_CLOUDFLARE_DATABASE_ID;
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	// @nuxthub/core must load before @nuxtjs/better-auth
@@ -17,13 +14,13 @@ export default defineNuxtConfig({
 
 	hub: {
 		// Local dev: SQLite file in .data/db. Cloudflare build: D1 binding "DB".
-		db: { dialect: "sqlite", casing: "snake_case", connection: cloudflareDatabaseId ? { databaseId: cloudflareDatabaseId } : undefined },
+		db: { dialect: "sqlite", casing: "snake_case" },
 		// Local dev: files in .data/blob, or the real R2 bucket over its S3 API when S3_* keys are in .env. Cloudflare build: R2 binding "BLOB" (bucket set in nitro.cloudflare above).
 		blob: true,
 	},
 
 	// With a Cloudflare API token in .env, `pnpm dev` uses the real D1 database (over Cloudflare's HTTP API) instead of .data/db
 	$development: { hub: { db: { dialect: "sqlite", driver: process.env.NUXT_HUB_CLOUDFLARE_API_TOKEN ? "d1-http" : undefined } } },
-	// NuxtHub would pick S3 whenever S3_* keys are set, baking them into a local build; production always uses the binding
-	$production: { hub: { blob: { driver: "cloudflare-r2", binding: "BLOB" } } },
+	// D1 database "paris-indoor-soccer-nuxt" (dev over d1-http reads the id from .env). NuxtHub would pick S3 whenever S3_* keys are set, baking them into a local build; production always uses the binding
+	$production: { hub: { db: { dialect: "sqlite", connection: { databaseId: "1d55e784-eeac-46ca-8988-197983ccc9fa" } }, blob: { driver: "cloudflare-r2", binding: "BLOB" } } },
 });

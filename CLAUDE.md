@@ -175,8 +175,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 1. ~~Create the GitHub repo and push.~~ Done: https://github.com/carvnich/paris-indoor-soccer-nuxt
 2. ~~`wrangler login`, `wrangler d1 create`~~ Done: D1 `paris-indoor-soccer-nuxt` (ENAM), id `1d55e784-eeac-46ca-8988-197983ccc9fa`, migrations applied and 2026/27 seeded. R2 bucket `paris-indoor-soccer-nuxt-photos` (ENAM) created.
-3. In the Cloudflare dashboard: Workers → Create → Import a repository. Build command `pnpm build:cloudflare`, deploy command `pnpm deploy:cloudflare`. Build variable `NUXT_HUB_CLOUDFLARE_DATABASE_ID=1d55e784-eeac-46ca-8988-197983ccc9fa`.
-4. Worker secrets: `NUXT_BETTER_AUTH_SECRET` (`openssl rand -hex 32`), `NUXT_PUBLIC_SITE_URL=https://<domain>`.
+3. In the Cloudflare dashboard: Workers → Create → Import a repository. Build command `pnpm build:cloudflare`, deploy command `pnpm deploy:cloudflare`. No build variables: the D1 id is in `$production` in `nuxt.config.ts` (a missing build variable once left the binding out of `wrangler.json`).
+4. Worker secrets: `NUXT_BETTER_AUTH_SECRET` (`openssl rand -hex 32`), `NUXT_PUBLIC_SITE_URL=https://<domain>`. Type Secret, not Text: `wrangler deploy` removes dashboard Text variables that aren't in the config.
 5. Load production data: point dev at the real D1 (see Commands), run `pnpm dev` (applies the migrations), then run the `db:seed` and `db:create-user` tasks. Seed done (2026/27); staff accounts created (admins `nicholas.carvalho`, `kurtis.cruickshank`; referees `mike.bijman`, `claire.osmon`). An account created this way signs in on the Worker too (the password hash doesn't depend on `NUXT_BETTER_AUTH_SECRET`). The build output was also verified end to end on workerd against a local D1 (`wrangler d1 … --local --persist-to <dir>`, then `wrangler dev --config .output/server/wrangler.json --persist-to <dir>`).
 6. Custom domain under Workers → Custom Domains, then retire both Vercel projects.
 
@@ -196,7 +196,8 @@ Push to `main` deploys; PRs get preview URLs. Sign-in on a preview URL fails: Be
 7. [ ] Cloudflare deploy (steps above) + custom domain.
    - [x] D1 created, `pnpm dev` runs against it (`d1-http`), migrations applied, 2026/27 season seeded (6 teams, 75 regular + 5 playoff games, Oct 16 2026 → May 14 2027). The 7:30 "Drop-In" on finals night was left out (not a league game).
    - [x] R2 bucket created.
-   - [ ] Workers Builds import, Worker secrets, custom domain (steps 3–6).
+   - [x] Workers Builds import and Worker secrets (steps 3–4). The first deploy failed without the D1 binding (fixed by the id in `nuxt.config.ts`).
+   - [ ] First successful deploy, custom domain (steps 5–6).
 8. [ ] UI redesign (see "Look" under Decisions).
    - [x] Layout (grey page, padded navbar, side menu) and Home on desktop (large standings table; fixed-width match-day card with an overlapping black date square).
    - [x] Mobile navbar, menu panel and tab row; Home on mobile (see "Home on mobile" under Decisions). Committed in `0c4cce7`.
@@ -208,11 +209,10 @@ Push to `main` deploys; PRs get preview URLs. Sign-in on a preview URL fails: Be
 
 ### Next session
 
-- **Next up:** step 8, Matches on mobile in the Home style. The owner wants the site live: step 7 waits on them importing the repo into Workers Builds in the Cloudflare dashboard; then set the Worker secrets and check the build. Step 6 needs a `mongoexport` of the `matches` and players collections from the owner, plus the player photos from ImageKit.
+- **Next up:** step 8, Matches on mobile in the Home style. The owner wants the site live: the repo is imported into Workers Builds and the Worker secrets are set; check that the deploy succeeds and the `workers.dev` URL works (pages, staff sign-in). Step 6 needs a `mongoexport` of the `matches` and players collections from the owner, plus the player photos from ImageKit.
 - **Owner reviews UI changes themselves** on their running dev server (HMR picks up edits) and reports back; don't take screenshots to check styling unless asked. To check fit (overflow, row heights, font sizes), measure in Playwright instead: `scrollWidth` vs `clientWidth`, `offsetHeight`, `getComputedStyle`, at 360/375/390px wide.
 - **The owner edits the same files by hand between requests.** Re-read a file before editing it, and treat their edits as the current state.
-- **Rotate the Cloudflare API token before launch** (owner's call to wait until then). The current one (`NUXT_HUB_CLOUDFLARE_API_TOKEN` in `.env`, named `paris-indoor-soccer-d1-dev`, Account → D1 → Edit) showed up in a session transcript. Only `.env` needs the new value.
-- **Rotate the R2 token too** (`paris-indoor-soccer-nuxt-dev`, a User API token, Object Read & Write on the bucket): its keys were also pasted into a session transcript. Only the `S3_*` values in `.env` change.
+- **Tokens rotated (2026-09-25):** the D1 API token (`paris-indoor-soccer-d1-dev`) and the R2 keys (`paris-indoor-soccer-nuxt-dev`), after both showed up in session transcripts. The new values are only in `.env`; the Worker uses bindings and needs neither.
 - **Performance ideas not applied** (small, or need the owner's call):
   - Better Auth `session.cookieCache`: skips a D1 session lookup on every page load for signed-in staff; revoking a session or changing a role then takes up to the cache age.
   - `POST /api/players`: the team and existing-player lookups run one after the other, and the old-photo delete waits for the roster write; both pairs could run together. Admin-only, untested because dev writes to production.
