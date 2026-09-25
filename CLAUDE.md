@@ -28,7 +28,7 @@ pnpm fmt                 # oxfmt (write); pnpm fmt:check to verify
 pnpm typecheck           # nuxt typecheck (vue-tsc) — also type-checks templates
 pnpm test                # node --test (test/*.test.ts; plain Node, no Nuxt)
 pnpm build:cloudflare    # production build for Workers (NITRO_PRESET=cloudflare_module)
-pnpm deploy:cloudflare   # apply D1 migrations remotely, then wrangler deploy
+pnpm deploy:cloudflare   # wrangler deploy (migrations reach D1 through pnpm dev, see Decisions)
 ```
 
 Nitro tasks run through the dev server (the Nuxt CLI has no `task run`):
@@ -69,6 +69,7 @@ Ad-hoc SQL: `pnpm exec nuxt-db sql "select …"`. Don't run it while `pnpm dev` 
 - **Player admin lives on the Rosters page** (one dialog for add and edit). Adding can pick a returning player (anyone not on a team that season) instead of typing a new name. "Remove" takes a player off one season; a player left with no seasons is deleted with their photo. Photos are one per person, stored under a random key (`players/photo-xxxx.webp`) and served by `/photos/**` with a year-long immutable cache. The browser resizes to 800px WebP; Safari can't encode WebP, so it sends JPEG.
 - **Playoff placeholders.** Playoff games are scheduled before teams are known: `home_team_id`/`away_team_id` are null and `home_slot`/`away_slot` hold labels like `3rd`, `Highest seed`, `Finals`. They're computed, not assigned: `resolvePlayoffs` in `server/utils/season.ts` fills them once every regular-season game has a score. Quarterfinal winners are re-ranked, so 1st plays the lower-ranked winner ("Lowest Seed"). That matches the real 2024/25 bracket; the old app's `updatePlayoffTeams` hard-coded it wrongly.
 - **Dates are local wall-clock text** (`2025-10-24T19:30:00`, no offset). Workers run in UTC — don't round-trip through `Date` on the server. Format for display with `Intl.DateTimeFormat` (moment is gone). "Today" uses the league's timezone (`America/Toronto`) so the server and browser agree on the current match day.
+- **Only NuxtHub applies migrations, never `wrangler d1 migrations apply`.** Both record them in `_hub_migrations`, but NuxtHub stores `0000_name` and wrangler looks for `0000_name.sql`, so wrangler re-runs migrations NuxtHub already applied (the first Workers deploy failed with "table `account` already exists"). A migration reaches D1 when `pnpm dev` starts against D1: do that before pushing code that needs it.
 - **TypeScript is pinned to 6.x.** TS 7 (the Go-native compiler) has no JS API, and NuxtHub's schema build (rolldown-plugin-dts) breaks with it. Revisit when the ecosystem supports TS 7.
 - **oxlint + oxfmt, not ESLint/Prettier.** Oxlint does not lint Vue `<template>` blocks yet; `nuxt typecheck` covers template type errors. Don't add ESLint to fill the gap. shadcn/lint was considered and skipped (can't see templates under Oxlint; DaisyUI components are classes, not Vue components).
 - **Styling rule:** use DaisyUI components and semantic theme colors (`primary`, `base-100`, `base-content`, …), not raw Tailwind palette colors (`red-500`) or arbitrary values (`p-[13px]`).

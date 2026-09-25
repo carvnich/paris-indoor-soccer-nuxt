@@ -6,7 +6,7 @@
 		"dev": "nuxt dev",
 		"build": "nuxt build",
 		"build:cloudflare": "NITRO_PRESET=cloudflare_module nuxt build",
-		"deploy:cloudflare": "wrangler d1 migrations apply DB --remote --config .output/server/wrangler.json && wrangler deploy --config .output/server/wrangler.json",
+		"deploy:cloudflare": "wrangler deploy --config .output/server/wrangler.json",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
 		"db:generate": "nuxt-db generate",
