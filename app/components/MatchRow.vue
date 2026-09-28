@@ -13,6 +13,8 @@ const dialog = ref<HTMLDialogElement>();
 const form = reactive<{ homeScore: number | "" | null; awayScore: number | "" | null; startsAt: string }>({ homeScore: null, awayScore: null, startsAt: "" });
 const error = ref("");
 const toast = useState("toast", () => "");
+// type="number" still accepts exponents, signs and decimals; scores are whole numbers
+const digitsOnly = (e: KeyboardEvent) => "eE+-.,".includes(e.key) && e.preventDefault();
 
 function edit() {
 	Object.assign(form, { homeScore: props.match.homeScore, awayScore: props.match.awayScore, startsAt: props.match.startsAt.slice(0, 16) });
@@ -38,7 +40,7 @@ async function save() {
 	<!-- DaisyUI list row: faded start time, match (grows), Edit for staff. The time and Edit columns are the same width (Edit's even when empty), so the match stays centered. -->
 	<li class="list-row items-center gap-2">
 		<div class="w-14 text-sm font-thin tabular-nums opacity-50 md:w-28 md:text-3xl">{{ formatTime(match.startsAt) }}</div>
-		<div class="flex items-center">
+		<div class="flex items-center gap-2">
 			<div class="flex flex-1 items-center justify-end gap-2 text-right">
 				<!-- Phones show only the shirt (like the table); playoff placeholders have no shirt, so their label always shows -->
 				<span :class="{ 'max-md:hidden': home }">{{ home?.name ?? match.homeSlot }}</span>
@@ -65,16 +67,16 @@ async function save() {
 				<h3 class="text-lg font-bold">{{ home?.name ?? match.homeSlot }} vs {{ away?.name ?? match.awaySlot }}</h3>
 				<div class="flex items-center gap-4">
 					<TeamShirt v-if="home" :color="home.color" />
-					<input v-model="form.homeScore" type="number" min="0" class="input" aria-label="Home score" />
+					<input v-model="form.homeScore" type="number" min="0" inputmode="numeric" class="input input-xl text-center text-3xl font-bold" aria-label="Home score" @keydown="digitsOnly" />
 					-
-					<input v-model="form.awayScore" type="number" min="0" class="input" aria-label="Away score" />
+					<input v-model="form.awayScore" type="number" min="0" inputmode="numeric" class="input input-xl text-center text-3xl font-bold" aria-label="Away score" @keydown="digitsOnly" />
 					<TeamShirt v-if="away" :color="away.color" />
 				</div>
 				<input v-model="form.startsAt" type="datetime-local" class="input w-full" aria-label="Start time" required />
 				<p v-if="error" class="text-error">{{ error }}</p>
 				<div class="modal-action">
-					<button type="button" class="btn" @click="dialog?.close()">Cancel</button>
-					<button class="btn btn-primary">Save</button>
+					<button type="button" class="btn flex-1 btn-lg" @click="dialog?.close()">Cancel</button>
+					<button class="btn flex-1 btn-lg btn-primary">Save</button>
 				</div>
 			</form>
 		</dialog>
