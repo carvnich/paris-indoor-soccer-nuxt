@@ -1,8 +1,11 @@
 // Pure functions (no auto-imports) so node can run them directly: see test/season.test.ts.
-import type { matches, teams } from "../db/schema";
+import type { leagues, matches, teams } from "../db/schema";
 
 type Team = typeof teams.$inferSelect;
 type Match = typeof matches.$inferSelect;
+
+// Each league names its playoff format (leagues.playoffFormat). To change one league's format, add a function here and point only that league at it.
+export const playoffFormats: Record<(typeof leagues.$inferSelect)["playoffFormat"], (matches: Match[], seeds: number[]) => void> = { "six-team": resolvePlayoffs };
 
 // Regular season only: 3 points a win, 1 a draw; ties broken by goal difference.
 export function computeStandings(teams: Team[], matches: Match[]) {

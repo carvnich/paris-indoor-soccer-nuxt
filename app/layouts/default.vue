@@ -5,12 +5,23 @@ import themes from "daisyui/functions/themeOrder";
 const { user, loggedIn, signOut } = useUserSession();
 const menuOpen = ref(false);
 
-const links = [
-	{ to: "/", label: "Home" },
-	{ to: "/matches", label: "Matches" },
-	{ to: "/rosters", label: "Rosters" },
-	{ to: "/downloads", label: "Downloads" },
-];
+// The league in the URL, or the last one opened on pages without one (Login, 404). Not awaited, so the page's own fetch runs alongside.
+const route = useRoute();
+const { data: leagues } = useFetch("/api/leagues");
+const leagueCookie = useLeagueCookie();
+const league = computed(() => leagues.value?.find((l) => l.slug === route.params.league)?.slug ?? leagueCookie.value);
+// Remembered for "/". Only here: separate useCookie refs don't see each other's changes. Only real leagues, so a mistyped URL can't send "/" to a 404.
+watch(league, (slug) => (leagueCookie.value = slug), { immediate: true });
+const links = computed(() => [
+	{ to: `/${league.value}`, label: "Home" },
+	{ to: `/${league.value}/matches`, label: "Matches" },
+	{ to: `/${league.value}/downloads`, label: "Downloads" },
+]);
+
+// Stays on the same page (Home, Matches) in the other league, on its newest season; from Login it opens the league's Home
+function pickLeague(slug: string) {
+	navigateTo(route.params.league ? { params: { league: slug } } : `/${slug}`);
+}
 
 // A cookie (not localStorage) so the server renders the right theme and the page doesn't flash.
 const theme = useCookie<string | null>("theme", { maxAge: 60 * 60 * 24 * 365 });
@@ -72,6 +83,9 @@ function pickTheme(name: string | null) {
 		<div class="md:flex mt-4">
 			<!-- Desktop: side menu, the active link's background runs to the left edge and its text lines up with the logo. Mobile: a sideways-scrolling row of pill tabs. -->
 			<nav class="flex overflow-x-auto scrollbar-none text-sm md:sticky md:top-32 md:max-w-50 md:flex-col md:self-start md:px-0 md:pt-12">
+				<select class="select select-sm w-auto shrink-0 md:mb-4 md:ml-16" aria-label="League" @change="pickLeague(($event.target as HTMLSelectElement).value)">
+					<option v-for="l in leagues" :key="l.slug" :value="l.slug" :selected="l.slug === league">{{ l.name }}</option>
+				</select>
 				<NuxtLink
 					v-for="link in links"
 					:key="link.to"

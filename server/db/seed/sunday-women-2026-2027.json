@@ -1,0 +1,1282 @@
+[
+	{
+		"matchId": "sw262701",
+		"dateTime": "2026-10-18T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262702",
+		"dateTime": "2026-10-18T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262703",
+		"dateTime": "2026-10-18T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262704",
+		"dateTime": "2026-10-25T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262705",
+		"dateTime": "2026-10-25T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262706",
+		"dateTime": "2026-10-25T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262707",
+		"dateTime": "2026-11-01T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262708",
+		"dateTime": "2026-11-01T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262709",
+		"dateTime": "2026-11-01T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262710",
+		"dateTime": "2026-11-08T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262711",
+		"dateTime": "2026-11-08T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262712",
+		"dateTime": "2026-11-08T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262713",
+		"dateTime": "2026-11-15T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262714",
+		"dateTime": "2026-11-15T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262715",
+		"dateTime": "2026-11-15T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262716",
+		"dateTime": "2026-11-22T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262717",
+		"dateTime": "2026-11-22T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262718",
+		"dateTime": "2026-11-22T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262719",
+		"dateTime": "2026-11-29T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262720",
+		"dateTime": "2026-11-29T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262721",
+		"dateTime": "2026-11-29T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262722",
+		"dateTime": "2026-12-06T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262723",
+		"dateTime": "2026-12-06T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262724",
+		"dateTime": "2026-12-06T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262725",
+		"dateTime": "2026-12-13T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262726",
+		"dateTime": "2026-12-13T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262727",
+		"dateTime": "2026-12-13T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262728",
+		"dateTime": "2026-12-20T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262729",
+		"dateTime": "2026-12-20T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262730",
+		"dateTime": "2026-12-20T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262731",
+		"dateTime": "2027-01-10T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262732",
+		"dateTime": "2027-01-10T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262733",
+		"dateTime": "2027-01-10T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262734",
+		"dateTime": "2027-01-17T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262735",
+		"dateTime": "2027-01-17T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262736",
+		"dateTime": "2027-01-17T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262737",
+		"dateTime": "2027-01-24T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262738",
+		"dateTime": "2027-01-24T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262739",
+		"dateTime": "2027-01-24T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262740",
+		"dateTime": "2027-01-31T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262741",
+		"dateTime": "2027-01-31T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262742",
+		"dateTime": "2027-01-31T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262743",
+		"dateTime": "2027-02-07T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262744",
+		"dateTime": "2027-02-07T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262745",
+		"dateTime": "2027-02-07T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262746",
+		"dateTime": "2027-02-14T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262747",
+		"dateTime": "2027-02-14T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262748",
+		"dateTime": "2027-02-14T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262749",
+		"dateTime": "2027-02-21T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262750",
+		"dateTime": "2027-02-21T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262751",
+		"dateTime": "2027-02-21T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262752",
+		"dateTime": "2027-02-28T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262753",
+		"dateTime": "2027-02-28T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262754",
+		"dateTime": "2027-02-28T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262755",
+		"dateTime": "2027-03-07T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262756",
+		"dateTime": "2027-03-07T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262757",
+		"dateTime": "2027-03-07T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262758",
+		"dateTime": "2027-03-14T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262759",
+		"dateTime": "2027-03-14T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262760",
+		"dateTime": "2027-03-14T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262761",
+		"dateTime": "2027-03-21T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262762",
+		"dateTime": "2027-03-21T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262763",
+		"dateTime": "2027-03-21T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262764",
+		"dateTime": "2027-04-04T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262765",
+		"dateTime": "2027-04-04T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262766",
+		"dateTime": "2027-04-04T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262767",
+		"dateTime": "2027-04-11T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262768",
+		"dateTime": "2027-04-11T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262769",
+		"dateTime": "2027-04-11T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262770",
+		"dateTime": "2027-04-18T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262771",
+		"dateTime": "2027-04-18T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262772",
+		"dateTime": "2027-04-18T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262773",
+		"dateTime": "2027-04-25T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 2",
+			"color": "Orange",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 3",
+			"color": "Pink",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262774",
+		"dateTime": "2027-04-25T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 1",
+			"color": "Purple",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 4",
+			"color": "Navy",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262775",
+		"dateTime": "2027-04-25T21:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Team 6",
+			"color": "Maroon",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Team 5",
+			"color": "Teal",
+			"score": null
+		},
+		"isPlayoff": false
+	},
+	{
+		"matchId": "sw262776",
+		"dateTime": "2027-05-02T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "3rd",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "6th",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "sw262777",
+		"dateTime": "2027-05-02T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "4th",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "5th",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "sw262778",
+		"dateTime": "2027-05-09T19:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "1st",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Lowest Seed",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "sw262779",
+		"dateTime": "2027-05-09T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "2nd",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Highest seed",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	},
+	{
+		"matchId": "sw262780",
+		"dateTime": "2027-05-16T20:30:00",
+		"season": "2026/2027",
+		"homeTeam": {
+			"team": "Finals",
+			"color": "TBD",
+			"score": null
+		},
+		"awayTeam": {
+			"team": "Finals",
+			"color": "TBD",
+			"score": null
+		},
+		"isPlayoff": true
+	}
+]

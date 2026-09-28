@@ -1,19 +1,19 @@
 import { and, eq } from "drizzle-orm";
 
 // One season's teams and every player; teamId is the player's team this season (null = not on a team, e.g. a returning player not yet placed).
-// Plus all seasons for the season picker. Defaults to the newest season.
+// Plus the league's seasons for the season picker. Defaults to the newest season.
 export default defineEventHandler(async (event) => {
-	const slug = getQuery(event).season;
+	const { league, season: slug } = getQuery(event);
 	const [{ season, seasons }, teams, players] = await Promise.all([
-		findSeason(slug),
+		findSeason(league, slug),
 		db
 			.select()
 			.from(schema.teams)
-			.where(eq(schema.teams.seasonId, seasonId(slug))),
+			.where(eq(schema.teams.seasonId, seasonId(league, slug))),
 		db
 			.select({ id: schema.players.id, firstName: schema.players.firstName, lastName: schema.players.lastName, imageKey: schema.players.imageKey, teamId: schema.rosters.teamId })
 			.from(schema.players)
-			.leftJoin(schema.rosters, and(eq(schema.rosters.playerId, schema.players.id), eq(schema.rosters.seasonId, seasonId(slug))))
+			.leftJoin(schema.rosters, and(eq(schema.rosters.playerId, schema.players.id), eq(schema.rosters.seasonId, seasonId(league, slug))))
 			.orderBy(schema.players.lastName),
 	]);
 

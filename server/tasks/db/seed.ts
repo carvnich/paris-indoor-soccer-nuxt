@@ -1,5 +1,7 @@
-// 2024/25 and 2025/26 are left out until they're migrated to D1 (their files stay for that and for the tests).
-import matches2026 from "../../db/seed/matches-2026-2027.json";
+// 2024/25 and 2025/26 (Friday co-ed) are left out until they're migrated to D1 (their files stay for that and for the tests).
+import fridayCoed2026 from "../../db/seed/friday-coed-2026-2027.json";
+// Placeholder until the real Sunday schedule arrives: Friday's moved to the Sunday after, with Team 1–6
+import sundayWomen2026 from "../../db/seed/sunday-women-2026-2027.json";
 
 // Shape of the legacy MongoDB `matches` documents. A `mongoexport --jsonArray`
 // of that collection has the same shape and can replace these files.
@@ -17,19 +19,19 @@ interface LegacyMatch {
 	isPlayoff: boolean;
 }
 
-const legacyMatches: LegacyMatch[] = matches2026;
+const leagues: { slug: string; name: string; playoffFormat: "six-team"; matches: LegacyMatch[] }[] = [
+	{ slug: "friday-coed", name: "Friday Co-ed", playoffFormat: "six-team", matches: fridayCoed2026 },
+	{ slug: "sunday-women", name: "Sunday Women's", playoffFormat: "six-team", matches: sundayWomen2026 },
+];
 
 export default defineTask({
-	meta: { name: "db:seed", description: "Import legacy seasons, teams and matches. Safe to re-run: existing rows are updated." },
+	meta: { name: "db:seed", description: "Import leagues, seasons, teams and matches. Safe to re-run: existing rows are updated." },
 	async run() {
 		const seasonIds = new Map<string, number>();
-		for (const name of new Set(legacyMatches.map((m) => m.season))) {
-			const [season] = await db.insert(schema.seasons).values({ name }).onConflictDoUpdate({ target: schema.seasons.name, set: { name } }).returning();
-			seasonIds.set(name, season!.id);
-		}
+		const teamIds = new Map<string, number>();
+		let matches = 0;
 
 		// Placeholder sides ("3rd", "Highest seed") have color "TBD" and no team yet.
-		const teamIds = new Map<string, number>();
 		async function resolveSide(seasonId: number, side: LegacySide) {
 			if (side.color === "TBD") return { teamId: null, slot: side.team };
 			const key = `${seasonId}|${side.color}`;
@@ -44,14 +46,28 @@ export default defineTask({
 			return { teamId: teamIds.get(key)!, slot: null };
 		}
 
-		for (const m of legacyMatches) {
-			const seasonId = seasonIds.get(m.season)!;
-			const home = await resolveSide(seasonId, m.homeTeam);
-			const away = await resolveSide(seasonId, m.awayTeam);
-			const values = { code: m.matchId, seasonId, startsAt: m.dateTime, homeTeamId: home.teamId, homeSlot: home.slot, awayTeamId: away.teamId, awaySlot: away.slot, homeScore: m.homeTeam.score ?? null, awayScore: m.awayTeam.score ?? null, isPlayoff: m.isPlayoff };
-			await db.insert(schema.matches).values(values).onConflictDoUpdate({ target: schema.matches.code, set: values });
+		for (const { matches: legacyMatches, ...league } of leagues) {
+			const [row] = await db.insert(schema.leagues).values(league).onConflictDoUpdate({ target: schema.leagues.slug, set: league }).returning();
+			const leagueId = row!.id;
+			for (const name of new Set(legacyMatches.map((m) => m.season))) {
+				const [season] = await db
+					.insert(schema.seasons)
+					.values({ leagueId, name })
+					.onConflictDoUpdate({ target: [schema.seasons.leagueId, schema.seasons.name], set: { name } })
+					.returning();
+				seasonIds.set(`${leagueId}|${name}`, season!.id);
+			}
+
+			for (const m of legacyMatches) {
+				const seasonId = seasonIds.get(`${leagueId}|${m.season}`)!;
+				const home = await resolveSide(seasonId, m.homeTeam);
+				const away = await resolveSide(seasonId, m.awayTeam);
+				const values = { code: m.matchId, seasonId, startsAt: m.dateTime, homeTeamId: home.teamId, homeSlot: home.slot, awayTeamId: away.teamId, awaySlot: away.slot, homeScore: m.homeTeam.score ?? null, awayScore: m.awayTeam.score ?? null, isPlayoff: m.isPlayoff };
+				await db.insert(schema.matches).values(values).onConflictDoUpdate({ target: schema.matches.code, set: values });
+			}
+			matches += legacyMatches.length;
 		}
 
-		return { result: { seasons: seasonIds.size, teams: teamIds.size, matches: legacyMatches.length } };
+		return { result: { leagues: leagues.length, seasons: seasonIds.size, teams: teamIds.size, matches } };
 	},
 });
