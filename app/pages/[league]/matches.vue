@@ -17,7 +17,7 @@ const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 <template>
 	<div v-if="data" class="flex flex-col gap-6">
 		<div class="flex items-center justify-between gap-2">
-			<h1 class="text-4xl font-bold">Matches</h1>
+			<h1 class="text-2xl font-medium">Matches</h1>
 			<div class="flex gap-2">
 				<NuxtLink :to="{ query: route.query, hash: `#day-${nextDay}` }" class="btn btn-sm">Today</NuxtLink>
 				<SeasonSelect :seasons="data.seasons" :season-id="data.season.id" />
@@ -34,20 +34,12 @@ const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 			</button>
 		</div>
 
-		<section v-for="[day, dayMatches] in days" :id="`day-${day}`" :key="day" class="card scroll-mt-36 bg-base-100 shadow-xl">
-			<div class="card-body">
-				<div>
-					<p class="opacity-60">{{ dayMatches.some((m) => m.isPlayoff) ? "Playoffs" : "Match day" }}</p>
-					<h2 class="card-title">{{ formatDate(day) }}</h2>
-				</div>
-				<ul class="list">
-					<MatchRow v-for="m in dayMatches" :key="m.id" :match="m" :teams="data.teams" />
-				</ul>
-			</div>
-		</section>
+		<!-- scroll-mt: a day jump stops with the date square (rising 32px above the card) 24px below the sticky navbar -->
+		<MatchDayCard v-for="[day, dayMatches] in days" :id="`day-${day}`" :key="day" :day="day" :matches="dayMatches" :teams="data.teams" class="scroll-mt-30" />
 
-		<button class="btn fixed right-4 bottom-4 rounded-lg btn-square btn-neutral" aria-label="Scroll to top" @click="toTop">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15l6-6 6 6" /></svg>
+		<!-- Clear of the browser toolbar at the bottom of phone screens -->
+		<button class="btn btn-lg fixed right-10 bottom-10 btn-circle btn-primary" aria-label="Scroll to top" @click="toTop">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15l6-6 6 6" /></svg>
 		</button>
 	</div>
 </template>

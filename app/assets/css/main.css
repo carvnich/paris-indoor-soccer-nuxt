@@ -21,3 +21,8 @@
 	--radius-box: 1.5rem;
 	--depth: 0;
 }
+
+/* Rows that scroll sideways (navbar, team filter) without a scrollbar */
+@utility scrollbar-none {
+	scrollbar-width: none;
+}

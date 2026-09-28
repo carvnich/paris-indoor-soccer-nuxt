@@ -13,15 +13,21 @@ async function submit() {
 </script>
 
 <template>
-	<form class="card mx-auto mt-8 max-w-sm bg-base-100 shadow-xl" @submit.prevent="submit">
-		<fieldset class="card-body">
-			<h1 class="mb-2 text-3xl font-bold">Staff login</h1>
-			<label class="label" for="username">Username</label>
-			<input id="username" v-model="form.username" class="input w-full" autocomplete="username" autocapitalize="none" required />
-			<label class="label" for="password">Password</label>
-			<input id="password" v-model="form.password" type="password" class="input w-full" autocomplete="current-password" required />
+	<!-- No card: fields sit on the page with only a bottom border (transparent, square, no side padding); focus darkens the border instead of DaisyUI's outline box.
+	     Floating labels: the placeholder rises into the label on focus. DaisyUI gives the label a base-100 background (to cover a top border) and the field's 0.75rem indent; inset-s-0 px-0 bg-transparent line it up with the unpadded text on the grey page. -->
+	<form class="mx-auto mt-8 max-w-sm" @submit.prevent="submit">
+		<fieldset class="flex flex-col gap-6">
+			<h1 class="mb-12 text-3xl font-bold">Login</h1>
+			<label class="floating-label">
+				<input v-model="form.username" placeholder="Username" class="input input-lg w-full rounded-none border-x-0 border-t-0 bg-transparent px-0 focus:outline-none" autocomplete="username" autocapitalize="none" required />
+				<span class="inset-s-0 bg-transparent px-0">Username</span>
+			</label>
+			<label class="floating-label">
+				<input v-model="form.password" type="password" placeholder="Password" class="input input-lg w-full rounded-none border-x-0 border-t-0 bg-transparent px-0 focus:outline-none" autocomplete="current-password" required />
+				<span class="inset-s-0 bg-transparent px-0">Password</span>
+			</label>
 			<p v-if="error" class="text-error">{{ error.message }}</p>
-			<button class="btn btn-primary mt-2" :disabled="status === 'pending'">Sign in</button>
+			<button class="btn mt-2 btn-neutral btn-lg" :disabled="status === 'pending'">Sign in</button>
 		</fieldset>
 	</form>
 </template>
