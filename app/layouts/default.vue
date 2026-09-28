@@ -20,6 +20,9 @@ const links = computed(() => [
 
 // Stays on the same page (Home, Matches) in the other league, on its newest season; from Login it opens the league's Home
 function pickLeague(slug: string) {
+	menuOpen.value = false;
+	// The DaisyUI dropdown stays open while it has focus
+	(document.activeElement as HTMLElement | null)?.blur();
 	navigateTo(route.params.league ? { params: { league: slug } } : `/${slug}`);
 }
 
@@ -35,12 +38,25 @@ function pickTheme(name: string | null) {
 </script>
 
 <template>
-	<div class="px-4">
+	<!-- The mobile layout at every width, 11/12 of the screen wide on desktop -->
+	<div class="mx-auto px-4 md:w-11/12">
 		<header class="navbar sticky top-0 z-10 bg-base-200">
-			<NuxtLink to="/" class="flex-1 text-lg font-medium whitespace-nowrap" aria-label="Paris Indoor Soccer">⚽ Paris Indoor Soccer</NuxtLink>
+			<NuxtLink to="/" class="flex-1 text-lg font-medium whitespace-nowrap md:text-2xl" aria-label="Paris Indoor Soccer">⚽ Paris Indoor Soccer</NuxtLink>
 
-			<!-- Theme picker and login: in the navbar on desktop, in a panel below the menu button on mobile -->
+			<!-- League picker, theme picker and login: in the navbar on desktop, in a panel below the menu button on mobile -->
 			<div class="flex items-center gap-2 max-md:absolute max-md:top-full max-md:right-4 max-md:flex-col max-md:rounded-box max-md:bg-base-100 max-md:p-4 max-md:shadow-xl" :class="{ 'max-md:hidden': !menuOpen }">
+				<div class="dropdown">
+					<div tabindex="0" role="button" class="btn btn-soft btn-md md:btn-lg">
+						{{ leagues?.find((l) => l.slug === league)?.name }}
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6" /></svg>
+					</div>
+					<ul tabindex="-1" class="dropdown-content menu rounded-box bg-base-100 shadow-xl">
+						<li v-for="l in leagues" :key="l.slug">
+							<button :class="{ 'menu-active': l.slug === league }" @click="pickLeague(l.slug)">{{ l.name }}</button>
+						</li>
+					</ul>
+				</div>
+
 				<!-- Each item sets data-theme on itself, so its colors preview that theme -->
 				<div class="dropdown dropdown-end">
 					<div tabindex="0" role="button" class="btn btn-sm" :title="`Theme: ${theme ?? 'System'}`">
@@ -49,6 +65,7 @@ function pickTheme(name: string | null) {
 							<span class="size-2 rounded-full bg-secondary"></span>
 							<span class="size-2 rounded-full bg-accent"></span>
 						</span>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6" /></svg>
 					</div>
 					<ul tabindex="-1" class="dropdown-content menu z-40 mt-2 max-h-96 flex-nowrap gap-1 overflow-y-auto rounded-box bg-base-100 p-2 shadow-xl">
 						<li>
@@ -80,24 +97,13 @@ function pickTheme(name: string | null) {
 			</button>
 		</header>
 
-		<div class="md:flex mt-4">
-			<!-- Desktop: side menu, the active link's background runs to the left edge and its text lines up with the logo. Mobile: a sideways-scrolling row of pill tabs. -->
-			<nav class="flex overflow-x-auto scrollbar-none text-sm md:sticky md:top-32 md:max-w-50 md:flex-col md:self-start md:px-0 md:pt-12">
-				<select class="select select-sm w-auto shrink-0 md:mb-4 md:ml-16" aria-label="League" @change="pickLeague(($event.target as HTMLSelectElement).value)">
-					<option v-for="l in leagues" :key="l.slug" :value="l.slug" :selected="l.slug === league">{{ l.name }}</option>
-				</select>
-				<NuxtLink
-					v-for="link in links"
-					:key="link.to"
-					:to="link.to"
-					class="rounded-full px-4 py-2 text-base-content/30 max-md:aria-[current=page]:bg-neutral max-md:aria-[current=page]:text-neutral-content md:rounded-l-none md:py-3 md:pr-6 md:pl-16 md:aria-[current=page]:bg-base-100 md:aria-[current=page]:text-base-content"
-					>{{ link.label }}</NuxtLink
-				>
-			</nav>
+		<!-- A centered row of pill tabs that scrolls sideways once it's wider than the screen ("safe" centering keeps the first tab reachable) -->
+		<nav class="mt-4 flex justify-center-safe overflow-x-auto scrollbar-none text-sm md:text-lg">
+			<NuxtLink v-for="link in links" :key="link.to" :to="link.to" class="rounded-full px-4 py-2 text-base-content/30 aria-[current=page]:bg-neutral aria-[current=page]:text-neutral-content">{{ link.label }}</NuxtLink>
+		</nav>
 
-			<main class="flex-1 pt-6 md:pt-12">
-				<slot />
-			</main>
-		</div>
+		<main class="pt-6 pb-8">
+			<slot />
+		</main>
 	</div>
 </template>

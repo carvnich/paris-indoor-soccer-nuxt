@@ -38,9 +38,9 @@ async function save() {
 			<TeamShirt v-if="home" :color="home.color" />
 		</div>
 		<!-- Fixed height (score + time), so entering a score doesn't make the row taller -->
-		<div class="flex h-10 w-24 flex-col justify-center text-center">
-			<div v-if="played" class="text-xl/6 font-bold">{{ match.homeScore }} - {{ match.awayScore }}</div>
-			<div :class="played ? 'text-sm/4 opacity-60' : 'text-base font-medium'">{{ formatTime(match.startsAt) }}</div>
+		<div class="flex h-10 w-24 flex-col justify-center text-center md:h-12">
+			<div v-if="played" class="text-xl/6 font-bold md:text-2xl/7">{{ match.homeScore }} - {{ match.awayScore }}</div>
+			<div :class="played ? 'text-sm/4 opacity-60 md:text-base/5' : 'text-base font-medium md:text-xl'">{{ formatTime(match.startsAt) }}</div>
 		</div>
 		<div class="flex flex-1 items-center gap-2">
 			<TeamShirt v-if="away" :color="away.color" />
