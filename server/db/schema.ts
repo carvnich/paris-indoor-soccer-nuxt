@@ -9,7 +9,7 @@ export const leagues = sqliteTable("leagues", {
 	slug: text().notNull().unique(), // "friday-coed"
 	name: text().notNull(), // "Friday Co-ed"
 	// Which playoff function resolves the bracket (playoffFormats in server/utils/season.ts), so one league's format can change without the other's
-	playoffFormat: text({ enum: ["six-team"] }).notNull(),
+	playoffFormat: text({ enum: ["six-team", "eight-team"] }).notNull(),
 });
 
 // A league's newest season (by name) is its current one.

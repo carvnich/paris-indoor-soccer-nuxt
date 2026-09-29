@@ -5,7 +5,7 @@ type Team = typeof teams.$inferSelect;
 type Match = typeof matches.$inferSelect;
 
 // Each league names its playoff format (leagues.playoffFormat). To change one league's format, add a function here and point only that league at it.
-export const playoffFormats: Record<(typeof leagues.$inferSelect)["playoffFormat"], (matches: Match[], seeds: number[]) => void> = { "six-team": resolvePlayoffs };
+export const playoffFormats: Record<(typeof leagues.$inferSelect)["playoffFormat"], (matches: Match[], seeds: number[]) => void> = { "six-team": resolvePlayoffs, "eight-team": resolveEightTeamPlayoffs };
 
 // Regular season only: 3 points a win, 1 a draw; ties broken by goal difference.
 export function computeStandings(teams: Team[], matches: Match[]) {
@@ -58,5 +58,45 @@ export function resolvePlayoffs(matches: Match[], seeds: number[]) {
 	if (final) {
 		final.homeTeamId ??= winner(semi1);
 		final.awayTeamId ??= winner(semi2);
+	}
+}
+
+// Sunday women's: quarterfinals "1st".."8th". Their winners are re-ranked by seed: "1st winner" plays "4th winner", "2nd winner" plays "3rd winner",
+// and the losers the same way ("1st loser"..). "Finals" is the winners of the two winners' semis, "Consolation" the winners of the two losers' semis.
+export function resolveEightTeamPlayoffs(matches: Match[], seeds: number[]) {
+	const games = matches.filter((m) => m.isPlayoff);
+	const find = (slot: string) => games.find((m) => m.homeSlot?.toLowerCase() === slot);
+	const seed = (slot: string | null) => (slot && /^\d(st|nd|rd|th)$/.test(slot) ? seeds[Number(slot[0]) - 1]! : null);
+	// [winner, loser], or nothing until the game has a score that isn't a draw
+	const result = (m?: Match) => (!m || m.homeScore === null || m.awayScore === null || m.homeScore === m.awayScore ? [null, null] : m.homeScore > m.awayScore ? [m.homeTeamId, m.awayTeamId] : [m.awayTeamId, m.homeTeamId]);
+	const bySeed = (ids: (number | null)[]) => (ids.length === 4 && !ids.includes(null) ? ids.sort((a, b) => seeds.indexOf(a!) - seeds.indexOf(b!)) : []);
+
+	for (const m of games) {
+		m.homeTeamId ??= seed(m.homeSlot);
+		m.awayTeamId ??= seed(m.awaySlot);
+	}
+
+	const quarterfinals = games.filter((m) => seed(m.homeSlot) && seed(m.awaySlot)).map(result);
+	const winners = bySeed(quarterfinals.map(([w]) => w ?? null));
+	const losers = bySeed(quarterfinals.map(([, l]) => l ?? null));
+	const semiTeams = new Map(
+		["1st", "2nd", "3rd", "4th"].flatMap((rank, i) => [
+			[`${rank} winner`, winners[i]],
+			[`${rank} loser`, losers[i]],
+		]),
+	);
+	for (const m of games) {
+		m.homeTeamId ??= semiTeams.get(m.homeSlot?.toLowerCase() ?? "") ?? null;
+		m.awayTeamId ??= semiTeams.get(m.awaySlot?.toLowerCase() ?? "") ?? null;
+	}
+
+	for (const [game, semi1, semi2] of [
+		["finals", "1st winner", "2nd winner"],
+		["consolation", "1st loser", "2nd loser"],
+	] as const) {
+		const m = find(game);
+		if (!m) continue;
+		m.homeTeamId ??= result(find(semi1))[0] ?? null;
+		m.awayTeamId ??= result(find(semi2))[0] ?? null;
 	}
 }

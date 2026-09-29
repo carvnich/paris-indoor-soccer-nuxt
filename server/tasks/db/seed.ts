@@ -1,6 +1,6 @@
 // 2024/25 and 2025/26 (Friday co-ed) are left out until they're migrated to D1 (their files stay for that and for the tests).
 import fridayCoed2026 from "../../db/seed/friday-coed-2026-2027.json";
-// Placeholder until the real Sunday schedule arrives: Friday's moved to the Sunday after, with Team 1–6
+// From the league's PDF schedule (v.2). Weeks 22–23 are left out: they don't count in the standings and only hold make-up games (staff move a cancelled game there).
 import sundayWomen2026 from "../../db/seed/sunday-women-2026-2027.json";
 
 // Shape of the legacy MongoDB `matches` documents. A `mongoexport --jsonArray`
@@ -19,9 +19,9 @@ interface LegacyMatch {
 	isPlayoff: boolean;
 }
 
-const leagues: { slug: string; name: string; playoffFormat: "six-team"; matches: LegacyMatch[] }[] = [
+const leagues: { slug: string; name: string; playoffFormat: "six-team" | "eight-team"; matches: LegacyMatch[] }[] = [
 	{ slug: "friday-coed", name: "Friday Co-ed", playoffFormat: "six-team", matches: fridayCoed2026 },
-	{ slug: "sunday-women", name: "Sunday Women's", playoffFormat: "six-team", matches: sundayWomen2026 },
+	{ slug: "sunday-women", name: "Sunday Women's", playoffFormat: "eight-team", matches: sundayWomen2026 },
 ];
 
 export default defineTask({

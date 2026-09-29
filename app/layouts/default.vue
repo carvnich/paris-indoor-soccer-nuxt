@@ -14,6 +14,7 @@ watch(league, (slug) => (leagueCookie.value = slug), { immediate: true });
 const links = computed(() => [
 	{ to: `/${league.value}`, label: "Home" },
 	{ to: `/${league.value}/matches`, label: "Matches" },
+	{ to: `/${league.value}/schedule`, label: "Schedule" },
 	{ to: `/${league.value}/downloads`, label: "Downloads" },
 ]);
 
