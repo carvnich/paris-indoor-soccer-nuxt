@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Matches as one DaisyUI list (a date row above each day's matches) instead of a card per day. On trial beside the Matches page: one of the two gets deleted.
+// The season's matches as one DaisyUI list, a date row above each day's matches
 const route = useRoute();
 const data = await useSeason("/api/season");
 
@@ -18,7 +18,7 @@ const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 <template>
 	<div v-if="data" class="flex flex-col gap-6">
 		<div class="flex items-center justify-between gap-2">
-			<h1 class="text-2xl font-medium">Matches</h1>
+			<h1 class="text-2xl font-medium">Schedule</h1>
 			<div class="flex gap-2">
 				<NuxtLink :to="{ query: route.query, hash: `#day-${nextDay}` }" class="btn btn-sm">Today</NuxtLink>
 				<SeasonSelect :seasons="data.seasons" :season-id="data.season.id" />
@@ -37,8 +37,8 @@ const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 		<ul class="list rounded-box bg-base-100 shadow-xl md:text-lg">
 			<template v-for="[day, dayMatches] in days" :key="day">
-				<!-- scroll-mt: a day jump stops 16px below the sticky navbar -->
-				<li :id="`day-${day}`" class="scroll-mt-20 px-4 pt-6 pb-2 font-bold md:text-2xl">{{ formatDate(day) }}</li>
+				<!-- A black rounded rectangle, only as wide as the date (self-start) (rounded-lg: light and dark round boxes by 1.5rem, a pill at this height). scroll-mt: a day jump stops 16px below the sticky navbar. -->
+				<li :id="`day-${day}`" class="mx-2 mt-4 scroll-mt-20 self-start md:mx-4 rounded-lg bg-neutral px-4 py-2 text-neutral-content md:text-2xl">{{ formatDate(day) }}</li>
 				<MatchRow v-for="m in dayMatches" :key="m.id" :match="m" :teams="data.teams" />
 			</template>
 		</ul>

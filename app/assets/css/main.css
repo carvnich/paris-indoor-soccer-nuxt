@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* JetBrains Mono, one variable font for every weight (upright only), bundled with the site. Browsers download only the alphabets a page uses (Latin: 40KB). */
+@import "@fontsource-variable/jetbrains-mono";
 @plugin "daisyui" {
 	themes: all;
 }
@@ -20,6 +22,11 @@
 	--radius-field: 2rem;
 	--radius-box: 1.5rem;
 	--depth: 0;
+}
+
+/* The page font: Tailwind's default font-sans, which <html> and every DaisyUI component inherit */
+@theme {
+	--font-sans: "JetBrains Mono Variable", ui-monospace, monospace;
 }
 
 /* Rows that scroll sideways (navbar, team filter) without a scrollbar */

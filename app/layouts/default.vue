@@ -13,7 +13,6 @@ const league = computed(() => leagues.value?.find((l) => l.slug === route.params
 watch(league, (slug) => (leagueCookie.value = slug), { immediate: true });
 const links = computed(() => [
 	{ to: `/${league.value}`, label: "Home" },
-	{ to: `/${league.value}/matches`, label: "Matches" },
 	{ to: `/${league.value}/schedule`, label: "Schedule" },
 	{ to: `/${league.value}/downloads`, label: "Downloads" },
 ]);
@@ -26,7 +25,7 @@ function openDrawer(p: "league" | "theme") {
 	drawer.value = true;
 }
 
-// Stays on the same page (Home, Matches) in the other league, on its newest season; from Login it opens the league's Home
+// Stays on the same page (Home, Schedule, Downloads) in the other league, on its newest season; from Login it opens the league's Home
 function pickLeague(slug: string) {
 	drawer.value = false;
 	navigateTo(route.params.league ? { params: { league: slug } } : `/${slug}`);

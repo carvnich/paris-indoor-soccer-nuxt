@@ -13,20 +13,27 @@ const day = computed(() => days.value[dayIndex.value]);
 
 <template>
 	<div v-if="data" class="flex flex-col gap-6">
-		<MatchDayCard v-if="day" :day="day[0]" :matches="day[1]" :teams="data.teams">
-			<template #prev>
-				<button class="btn btn-circle btn-ghost" aria-label="Previous match day" :disabled="dayIndex === 0" @click="dayIndex--">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 6l-6 6 6 6" /></svg>
-				</button>
-			</template>
-			<template #next>
-				<button class="btn btn-circle btn-ghost" aria-label="Next match day" :disabled="dayIndex === days.length - 1" @click="dayIndex++">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" /></svg>
-				</button>
-			</template>
-			<!-- The selected match day out of the season's match days, playoffs included -->
-			<progress class="progress h-1" :value="dayIndex + 1" :max="days.length" aria-label="Season progress"></progress>
-		</MatchDayCard>
+		<!-- White card of the day's matches, with the square black date card overlapping its top edge (mt-8 keeps the square clear of the navbar) -->
+		<section v-if="day" class="card mt-8 bg-base-100 shadow-xl">
+			<div class="card-body gap-8 p-4">
+				<div class="-mt-12 flex items-center justify-center gap-4">
+					<button class="btn btn-circle btn-ghost" aria-label="Previous match day" :disabled="dayIndex === 0" @click="dayIndex--">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 6l-6 6 6 6" /></svg>
+					</button>
+					<div class="flex size-28 items-center justify-center rounded-box bg-neutral text-neutral-content shadow-xl">
+						<h2 class="text-2xl md:text-3xl">{{ formatDate(day[0]) }}</h2>
+					</div>
+					<button class="btn btn-circle btn-ghost" aria-label="Next match day" :disabled="dayIndex === days.length - 1" @click="dayIndex++">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" /></svg>
+					</button>
+				</div>
+				<ul class="list md:text-lg">
+					<MatchRow v-for="m in day[1]" :key="m.id" :match="m" :teams="data.teams" />
+				</ul>
+				<!-- The selected match day out of the season's match days, playoffs included -->
+				<progress class="progress h-1" :value="dayIndex + 1" :max="days.length" aria-label="Season progress"></progress>
+			</div>
+		</section>
 
 		<!-- A white card, like the match-day card above it -->
 		<section class="flex flex-col gap-4 rounded-box bg-base-100 p-4 shadow-xl">
@@ -37,7 +44,8 @@ const day = computed(() => days.value[dayIndex.value]);
 			<div class="overflow-x-auto">
 				<table class="table table-xs text-center md:table-md">
 					<thead class="text-xs text-base-content md:text-lg">
-						<tr class="*:font-medium">
+						<!-- Phones: narrower cells (max-md:*:px-1) so the team names fit; long names wrap -->
+						<tr class="*:font-medium max-md:*:px-1">
 							<th class="text-left">#</th>
 							<th class="text-left">Team</th>
 							<th>PL</th>
@@ -50,12 +58,12 @@ const day = computed(() => days.value[dayIndex.value]);
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(t, i) in data.standings" :key="t.id" class="text-xs md:text-lg">
+						<tr v-for="(t, i) in data.standings" :key="t.id" class="text-xs max-md:*:px-1 md:text-lg">
 							<td class="text-left">{{ i + 1 }}</td>
 							<td>
-								<div class="flex items-center gap-2">
+								<div class="flex items-center gap-1 text-left md:gap-2">
 									<TeamShirt :color="t.color" />
-									<span class="font-medium max-md:hidden">{{ t.name }}</span>
+									<span>{{ t.name }}</span>
 								</div>
 							</td>
 							<td>{{ t.played }}</td>
