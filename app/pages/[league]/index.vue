@@ -58,7 +58,7 @@ const day = computed(() => days.value[dayIndex.value]);
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(t, i) in data.standings" :key="t.id" class="text-xs max-md:*:px-1 md:text-lg">
+						<tr v-for="(t, i) in data.standings" :key="t.id" class="text-xs max-md:*:px-1 *:py-2 md:text-lg">
 							<td class="text-left">{{ i + 1 }}</td>
 							<td>
 								<div class="flex items-center gap-1 text-left md:gap-2">
