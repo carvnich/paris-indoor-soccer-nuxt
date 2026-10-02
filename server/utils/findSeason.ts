@@ -23,3 +23,24 @@ export const seasonId = (league: unknown, slug?: unknown) =>
 		.where(and(eq(schema.leagues.slug, String(league)), slug ? eq(schema.seasons.name, String(slug).replace("-", "/")) : undefined))
 		.orderBy(desc(schema.seasons.name))
 		.limit(1);
+
+// A season's teams, standings and matches (playoff placeholders resolved), for the season page and the team calendars
+export async function loadSeason(leagueSlug: unknown, slug?: unknown) {
+	const [{ league, season, seasons }, teams, matches] = await Promise.all([
+		findSeason(leagueSlug, slug),
+		db
+			.select()
+			.from(schema.teams)
+			.where(eq(schema.teams.seasonId, seasonId(leagueSlug, slug))),
+		db
+			.select()
+			.from(schema.matches)
+			.where(eq(schema.matches.seasonId, seasonId(leagueSlug, slug)))
+			.orderBy(schema.matches.startsAt),
+	]);
+	const standings = computeStandings(teams, matches);
+	// Seeds are only known once every regular-season game has a score
+	const seeds = standings.map((t) => t.id);
+	if (matches.every((m) => m.isPlayoff || m.homeScore !== null)) playoffFormats[league.playoffFormat](matches, seeds);
+	return { league, season, seasons, teams, standings, matches };
+}

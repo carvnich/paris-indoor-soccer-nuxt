@@ -13,13 +13,24 @@ const nextDay = computed(() => days.value[nextDayIndex(days.value)]?.[0]);
 // Season progress: match days before today out of all match days, playoffs included, whatever the team filter
 const allDays = computed(() => groupByDay(data.value?.matches ?? []));
 const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+// The selected team's calendar feed (server/routes/calendar); webcal:// opens the calendar app's subscribe prompt
+const { host } = useRequestURL();
+const team = computed(() => data.value?.teams.find((t) => t.id === teamId.value));
+const calendar = computed(() => team.value && `webcal://${host}/calendar/${route.params.league}/${team.value.color.toLowerCase()}.ics?season=${data.value!.season.name.replace("/", "-")}`);
 </script>
 
 <template>
 	<div v-if="data" class="flex flex-col gap-6">
 		<div class="flex items-center justify-between gap-2">
-			<h1 class="text-2xl font-medium">Schedule</h1>
+			<h1 class="text-xl font-medium md:text-3xl">Schedule</h1>
 			<div class="flex gap-2">
+				<!-- One feed per team, so disabled until a team is picked below. Calendar-plus icon (Lucide) on phones, text on desktop. -->
+				<a :href="calendar" class="btn btn-sm max-md:btn-square max-md:rounded-lg" :class="{ 'btn-disabled': !calendar }" :aria-disabled="!calendar">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-4 stroke-current md:hidden">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 18h6M16 2v3M19 15v6M21 11.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.3M3 9h18M8 2v3" />
+					</svg>
+					<span class="max-md:sr-only">Subscribe</span>
+				</a>
 				<NuxtLink :to="{ query: route.query, hash: `#day-${nextDay}` }" class="btn btn-sm">Today</NuxtLink>
 				<SeasonSelect :seasons="data.seasons" :season-id="data.season.id" />
 			</div>
