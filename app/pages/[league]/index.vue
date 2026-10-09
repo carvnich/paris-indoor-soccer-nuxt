@@ -13,34 +13,23 @@ const day = computed(() => days.value[dayIndex.value]);
 
 <template>
 	<div v-if="data" class="flex flex-col gap-6">
-		<!-- White card of the day's matches, with the square black date card overlapping its top edge (mt-8 keeps the square clear of the navbar) -->
-		<section v-if="day" class="card mt-8 bg-base-100 shadow-xl">
-			<div class="card-body gap-8 p-4">
-				<div class="-mt-12 flex items-center justify-center gap-4">
-					<button class="btn btn-circle btn-ghost" aria-label="Previous match day" :disabled="dayIndex === 0" @click="dayIndex--">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 6l-6 6 6 6" /></svg>
-					</button>
-					<div class="flex size-28 items-center justify-center rounded-box bg-neutral text-neutral-content shadow-xl">
-						<h2 class="text-2xl md:text-3xl">{{ formatDate(day[0]) }}</h2>
-					</div>
-					<button class="btn btn-circle btn-ghost" aria-label="Next match day" :disabled="dayIndex === days.length - 1" @click="dayIndex++">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-10 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" /></svg>
-					</button>
-				</div>
-				<ul class="list md:text-lg">
-					<MatchRow v-for="m in day[1]" :key="m.id" :match="m" :teams="data.teams" />
-				</ul>
-				<!-- The selected match day out of the season's match days, playoffs included -->
-				<progress class="progress h-1" :value="dayIndex + 1" :max="days.length" aria-label="Season progress"></progress>
+		<!-- The selected match day out of the season's match days, playoffs included -->
+		<progress v-if="day" class="progress h-1" :value="dayIndex + 1" :max="days.length" aria-label="Season progress"></progress>
+
+		<!-- The selected match day, with previous/next arrows beside the date (rounded-lg: light and dark round fields by 2rem, which would make a small square a circle) -->
+		<MatchDayCard v-if="day" :date="day[0]" :matches="day[1]" :teams="data.teams">
+			<div class="flex gap-1">
+				<button class="btn rounded-lg btn-square btn-ghost btn-sm" aria-label="Previous match day" :disabled="dayIndex === 0" @click="dayIndex--">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 6l-6 6 6 6" /></svg>
+				</button>
+				<button class="btn rounded-lg btn-square btn-ghost btn-sm" aria-label="Next match day" :disabled="dayIndex === days.length - 1" @click="dayIndex++">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="size-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" /></svg>
+				</button>
 			</div>
-		</section>
+		</MatchDayCard>
 
 		<!-- A white card, like the match-day card above it -->
 		<section class="flex flex-col gap-4 rounded-box bg-base-100 p-4 shadow-xl">
-			<div class="flex items-center justify-between gap-2">
-				<h1 class="text-xl font-medium md:text-3xl">Table</h1>
-				<SeasonSelect class="md:select-md" :seasons="data.seasons" :season-id="data.season.id" />
-			</div>
 			<div class="overflow-x-auto">
 				<table class="table table-xs text-center md:table-md">
 					<thead class="text-xs text-base-content md:text-lg">
