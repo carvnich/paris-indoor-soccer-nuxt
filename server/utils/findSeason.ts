@@ -39,8 +39,10 @@ export async function loadSeason(leagueSlug: unknown, slug?: unknown) {
 			.orderBy(schema.matches.startsAt),
 	]);
 	const standings = computeStandings(teams, matches);
-	// Seeds are only known once every regular-season game has a score
-	const seeds = standings.map((t) => t.id);
-	if (matches.every((m) => m.isPlayoff || m.homeScore !== null)) playoffFormats[league.playoffFormat](matches, seeds);
+	// Playoff teams follow the standings as they stand, so they change as scores come in (until then, teams level on points keep their database order)
+	playoffFormats[league.playoffFormat](
+		matches,
+		standings.map((t) => t.id),
+	);
 	return { league, season, seasons, teams, standings, matches };
 }
