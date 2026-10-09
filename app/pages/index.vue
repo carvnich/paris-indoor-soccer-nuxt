@@ -5,7 +5,7 @@ definePageMeta({ layout: false });
 const picked = useCookie<string | undefined>("league", { maxAge: 60 * 60 * 24 * 365 });
 if (picked.value) await navigateTo(`/${picked.value}`, { replace: true });
 const { data: leagues } = await useFetch("/api/leagues");
-useHead({ htmlAttrs: { class: "bg-base-200" } });
+useHead({ htmlAttrs: { class: "bg-base-300" } });
 </script>
 
 <template>

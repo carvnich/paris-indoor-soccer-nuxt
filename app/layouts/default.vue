@@ -18,8 +18,7 @@ const links = computed(() => [
 	{ to: `/${league.value}/schedule`, label: "Schedule", icon: "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" },
 ]);
 
-// The header's season picker and Follow dropdown (a calendar feed per team, server/routes/calendar; webcal:// opens the calendar app's subscribe prompt), on Home and Schedule
-const seasonPage = computed(() => route.name === "league" || route.name === "league-schedule");
+// The header's season picker and Follow dropdown (a calendar feed per team, server/routes/calendar; webcal:// opens the calendar app's subscribe prompt), on every page
 const { data: info } = useFetch("/api/teams", { query: { league, season: computed(() => route.query.season) } });
 const season = computed(() => info.value?.seasons.find((s) => s.name.replace("/", "-") === route.query.season) ?? info.value?.seasons[0]);
 const { host } = useRequestURL();
@@ -38,7 +37,7 @@ function pickLeague(slug: string) {
 
 // A cookie (not localStorage) so the server renders the right theme and the page doesn't flash.
 const theme = useCookie<string | null>("theme", { maxAge: 60 * 60 * 24 * 365 });
-useHead({ htmlAttrs: { "data-theme": () => theme.value || undefined, class: "bg-base-200" } });
+useHead({ htmlAttrs: { "data-theme": () => theme.value || undefined, class: "bg-base-300" } });
 
 function pickTheme(name: string | null) {
 	theme.value = name;
@@ -57,8 +56,8 @@ const toast = useState("toast", () => "");
 			<!-- League header (scrolls away): the league's icon (public/leagues/<slug>.svg), name and subtitle, menu button on the right -->
 			<header class="bg-primary text-primary-content">
 				<div class="mx-auto px-4 pt-4 pb-6 md:w-11/12">
-					<!-- Season picker and Follow, right-aligned, for the pages that have seasons: two DaisyUI dropdowns. Text is 12px on phones like the match rows; Follow's teams get a line between them. -->
-					<div v-if="seasonPage && info" class="relative flex items-center justify-end gap-2 pb-4">
+					<!-- Season picker and Follow, right-aligned, on every page: two DaisyUI dropdowns. Text is 12px on phones like the match rows; Follow's teams get a line between them. -->
+					<div v-if="info" class="relative flex items-center justify-end gap-2 pb-4">
 						<div class="dropdown dropdown-bottom dropdown-end">
 							<button tabindex="0" class="btn btn-soft btn-primary btn-sm">
 								{{ season?.name }}
