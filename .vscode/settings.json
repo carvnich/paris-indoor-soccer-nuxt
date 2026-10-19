@@ -1,0 +1,10 @@
+// Format on save with the repo's oxfmt (.oxfmtrc.json) instead of Prettier, like .zed/settings.json. Lint comes from the oxc extension (.oxlintrc.json).
+{
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"editor.codeActionsOnSave": { "source.fixAll.eslint": "never", "source.organizeImports": "never" },
+	"[vue]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+	"[typescript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+	"[javascript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+	"[css]": { "editor.defaultFormatter": "oxc.oxc-vscode" }
+}
