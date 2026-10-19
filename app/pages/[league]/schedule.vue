@@ -12,7 +12,7 @@ const days = computed(() => groupByDay((data.value?.matches ?? []).filter((m) =>
 const nextDay = computed(() => days.value[nextDayIndex(days.value)]?.[0]);
 // Season progress: match days before today out of all match days, playoffs included, whatever the team filter
 const allDays = computed(() => groupByDay(data.value?.matches ?? []));
-// Opens on the next match day (the closest date), whatever the scroll position was before a refresh
+// Opens on the match day closest to now, whatever the scroll position was before a refresh
 onMounted(() => document.getElementById(`day-${nextDay.value}`)?.scrollIntoView());
 const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 </script>

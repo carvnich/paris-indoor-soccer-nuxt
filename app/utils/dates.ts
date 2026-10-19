@@ -9,9 +9,15 @@ export const today = () => new Date().toLocaleDateString("en-CA", { timeZone: "A
 
 // Matches grouped by date, as [YYYY-MM-DD, matches] pairs in date order
 export const groupByDay = <T extends { startsAt: string }>(matches: T[]) => Object.entries(Object.groupBy(matches, (m) => m.startsAt.slice(0, 10))) as [string, T[]][];
-// Index of the next day to play, or the last day once the season is over
-export const nextDayIndex = (days: [string, unknown][]) => {
-	const now = today();
-	const i = days.findIndex(([day]) => day >= now);
-	return i === -1 ? days.length - 1 : i;
+// Index of the match day closest to now: the distance is from now to the day's first game, so Saturday and Sunday still show Friday's games and Wednesday on shows the next Friday. A tie goes to the upcoming day.
+export const nextDayIndex = (days: [string, { startsAt: string }[]][]) => {
+	const now = Date.parse(`${new Date().toLocaleString("sv-SE", { timeZone: "America/Toronto" }).replace(" ", "T")}Z`);
+	let best = 0;
+	let bestDistance = Infinity;
+	days.forEach(([, matches], i) => {
+		const start = Date.parse(`${matches[0]!.startsAt}Z`);
+		const distance = Math.abs(start - now);
+		if (distance < bestDistance || (distance === bestDistance && start > now)) [best, bestDistance] = [i, distance];
+	});
+	return best;
 };
