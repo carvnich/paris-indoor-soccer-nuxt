@@ -2,7 +2,7 @@
 import type * as schema from "~~/server/db/schema";
 
 // One match day in a white card (a yellow border on playoff days): the date (and whatever the page puts in the slot, e.g. Home's day arrows) above a faint line, then the day's matches
-const props = defineProps<{ date: string; matches: (typeof schema.matches.$inferSelect)[]; teams: (typeof schema.teams.$inferSelect)[] }>();
+const props = defineProps<{ date: string; matches: (typeof schema.matches.$inferSelect & { capped: boolean })[]; teams: (typeof schema.teams.$inferSelect)[] }>();
 const playoffs = computed(() => props.matches.some((m) => m.isPlayoff));
 </script>
 

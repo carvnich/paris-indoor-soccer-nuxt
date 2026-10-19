@@ -7,27 +7,33 @@ type Match = typeof matches.$inferSelect;
 // Each league names its playoff format (leagues.playoffFormat). To change one league's format, add a function here and point only that league at it.
 export const playoffFormats: Record<(typeof leagues.$inferSelect)["playoffFormat"], (matches: Match[], seeds: number[]) => void> = { "six-team": resolvePlayoffs, "eight-team": resolveEightTeamPlayoffs };
 
-// Regular season only: 3 points a win, 1 a draw; ties broken by goal difference.
-export function computeStandings(teams: Team[], matches: Match[]) {
+// A score with the winner's goals cut so they win by at most `cap` (null = no cap). The winner stays the winner, so results and playoff brackets don't change.
+export const capScore = (home: number, away: number, cap: number | null): [number, number] => (cap === null || Math.abs(home - away) <= cap ? [home, away] : home > away ? [away + cap, away] : [home, home + cap]);
+
+// Regular season only: 3 points a win, 1 a draw. With a cap, goals for/against and goal difference use the capped scores, but ties on points are broken by the real goal difference.
+export function computeStandings(teams: Team[], matches: Match[], cap: number | null = null) {
 	const rows = teams.map((t) => ({ ...t, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0 }));
+	const realDifference = new Map(teams.map((t) => [t.id, 0]));
 	for (const m of matches) {
 		if (m.isPlayoff || m.homeScore === null || m.awayScore === null) continue;
-		for (const [id, gf, ga] of [
-			[m.homeTeamId, m.homeScore, m.awayScore],
-			[m.awayTeamId, m.awayScore, m.homeScore],
+		const [capHome, capAway] = capScore(m.homeScore, m.awayScore, cap);
+		for (const [id, gf, ga, capFor, capAgainst] of [
+			[m.homeTeamId, m.homeScore, m.awayScore, capHome, capAway],
+			[m.awayTeamId, m.awayScore, m.homeScore, capAway, capHome],
 		] as const) {
 			const row = rows.find((r) => r.id === id)!;
 			row.played++;
-			row.goalsFor += gf;
-			row.goalsAgainst += ga;
-			row.goalDifference += gf - ga;
+			row.goalsFor += capFor;
+			row.goalsAgainst += capAgainst;
+			row.goalDifference += capFor - capAgainst;
+			realDifference.set(id!, realDifference.get(id!)! + gf - ga);
 			if (gf > ga) row.wins++;
 			else if (gf < ga) row.losses++;
 			else row.draws++;
 		}
 	}
 	for (const r of rows) r.points = r.wins * 3 + r.draws;
-	return rows.sort((a, b) => b.points - a.points || b.goalDifference - a.goalDifference);
+	return rows.sort((a, b) => b.points - a.points || realDifference.get(b.id)! - realDifference.get(a.id)!);
 }
 
 // Fills in playoff teams from placeholder slots, in place. `seeds` = team ids by final standing.

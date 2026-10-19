@@ -23,3 +23,6 @@ logs
 .env
 .env.*
 !.env.example
+
+# Staff usernames and passwords (this repo is public: never commit)
+.staff-accounts.md

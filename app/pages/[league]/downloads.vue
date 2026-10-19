@@ -4,8 +4,7 @@ const { data, error, refresh } = await useFetch("/api/downloads", { query: { lea
 if (error.value) throw createError(error.value);
 
 // Admins upload (a file with the same name replaces the old one) and delete
-const { user } = useUserSession();
-const isAdmin = computed(() => user.value?.role === "admin");
+const isAdmin = useCanManage(["admin"]);
 const fileInput = ref<HTMLInputElement>();
 const uploadError = ref("");
 const toast = useState("toast", () => "");

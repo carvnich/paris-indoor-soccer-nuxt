@@ -2,8 +2,15 @@ import { and, eq } from "drizzle-orm";
 
 // Admin: take a player off their team for one season (?seasonId=). A player left with no seasons is deleted, photo included.
 export default defineEventHandler(async (event) => {
-	await requireUserSession(event, { user: { role: "admin" } });
+	await requireUserSession(event);
 	const playerId = Number(getRouterParam(event, "id"));
+	const [league] = await db
+		.select({ slug: schema.leagues.slug })
+		.from(schema.seasons)
+		.innerJoin(schema.leagues, eq(schema.leagues.id, schema.seasons.leagueId))
+		.where(eq(schema.seasons.id, Number(getQuery(event).seasonId)));
+	if (!league) throw createError({ statusCode: 404, statusMessage: "Season not found" });
+	await requireLeague(event, ["admin"], league.slug);
 	const [roster] = await db
 		.delete(schema.rosters)
 		.where(and(eq(schema.rosters.playerId, playerId), eq(schema.rosters.seasonId, Number(getQuery(event).seasonId))))

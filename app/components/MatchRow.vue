@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type * as schema from "~~/server/db/schema";
 
-const props = defineProps<{ match: typeof schema.matches.$inferSelect; teams: (typeof schema.teams.$inferSelect)[] }>();
+const props = defineProps<{ match: typeof schema.matches.$inferSelect & { capped: boolean }; teams: (typeof schema.teams.$inferSelect)[] }>();
 const home = computed(() => props.teams.find((t) => t.id === props.match.homeTeamId));
 const away = computed(() => props.teams.find((t) => t.id === props.match.awayTeamId));
 const played = computed(() => props.match.homeScore !== null && props.match.awayScore !== null);
 
 // Admins and referees edit the score and start time in a dialog. A cleared number input is "", which means not played.
-const { user } = useUserSession();
-const canEdit = computed(() => user.value?.role === "admin" || user.value?.role === "referee");
+const canEdit = useCanManage(["admin", "referee"]);
+// Referees enter scores only; admins can also move the start time
+const canEditTime = useCanManage(["admin"]);
 const dialog = ref<HTMLDialogElement>();
 const form = reactive<{ homeScore: number | "" | null; awayScore: number | "" | null; startsAt: string }>({ homeScore: null, awayScore: null, startsAt: "" });
 const error = ref("");
@@ -46,7 +47,7 @@ async function save() {
 				<TeamShirt v-if="home" :color="home.color" />
 			</div>
 			<!-- The score once played, the faded start time until then; same line height, so entering a score doesn't make the row taller -->
-			<div class="text-center whitespace-nowrap md:text-2xl" :class="played ? 'text-sm font-medium' : 'text-xs/8 font-thin tabular-nums opacity-50'">{{ played ? `${match.homeScore} - ${match.awayScore}` : formatTime(match.startsAt) }}</div>
+			<div class="text-center whitespace-nowrap md:text-2xl" :class="played ? 'text-sm font-medium' : 'text-xs/8 font-thin tabular-nums opacity-50'">{{ played ? `${match.homeScore} - ${match.awayScore}${match.capped ? "*" : ""}` : formatTime(match.startsAt) }}</div>
 			<div class="flex flex-1 items-center gap-1 md:gap-2">
 				<TeamShirt v-if="away" :color="away.color" />
 				<span>{{ away?.name ?? match.awaySlot }}</span>
@@ -69,7 +70,7 @@ async function save() {
 					<input v-model="form.awayScore" type="number" min="0" inputmode="numeric" class="input input-xl text-center text-3xl font-bold" aria-label="Away score" @keydown="digitsOnly" />
 					<TeamShirt v-if="away" :color="away.color" />
 				</div>
-				<input v-model="form.startsAt" type="datetime-local" class="input w-full" aria-label="Start time" required />
+				<input v-if="canEditTime" v-model="form.startsAt" type="datetime-local" class="input w-full" aria-label="Start time" required />
 				<p v-if="error" class="text-error">{{ error }}</p>
 				<div class="modal-action">
 					<button type="button" class="btn flex-1 btn-lg" @click="dialog?.close()">Cancel</button>

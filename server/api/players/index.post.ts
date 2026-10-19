@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 // Admin: create a player (no id) or update one, put them on a team for that team's season, and replace or remove their photo.
 // Photos arrive already resized by the browser (WebP, or JPEG where the browser can't encode WebP).
 export default defineEventHandler(async (event) => {
-	await requireUserSession(event, { user: { role: "admin" } });
+	await requireUserSession(event);
 	const form = await readFormData(event);
 	const id = Number(form.get("id")) || undefined;
 	const firstName = String(form.get("firstName") ?? "").trim();
@@ -14,6 +14,9 @@ export default defineEventHandler(async (event) => {
 		.from(schema.teams)
 		.where(eq(schema.teams.id, Number(form.get("teamId"))));
 	if (!firstName || !lastName || !team) throw createError({ statusCode: 400, statusMessage: "Name and team are required" });
+	// The team's league (a player in two leagues is checked against the league being edited)
+	const [league] = await db.select({ slug: schema.leagues.slug }).from(schema.seasons).innerJoin(schema.leagues, eq(schema.leagues.id, schema.seasons.leagueId)).where(eq(schema.seasons.id, team.seasonId));
+	await requireLeague(event, ["admin"], league!.slug);
 	if (photo instanceof File) ensureBlob(photo, { maxSize: "1MB", types: ["image/webp", "image/jpeg"] });
 	const [old] = id ? await db.select().from(schema.players).where(eq(schema.players.id, id)) : [];
 	if (id && !old) throw createError({ statusCode: 404, statusMessage: "Player not found" });

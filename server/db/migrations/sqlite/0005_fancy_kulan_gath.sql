@@ -1,0 +1,1 @@
+ALTER TABLE `leagues` ADD `goal_margin_cap` integer;

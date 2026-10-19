@@ -24,8 +24,9 @@ export const seasonId = (league: unknown, slug?: unknown) =>
 		.orderBy(desc(schema.seasons.name))
 		.limit(1);
 
-// A season's teams, standings and matches (playoff placeholders resolved), for the season page and the team calendars
-export async function loadSeason(leagueSlug: unknown, slug?: unknown) {
+// A season's teams, standings and matches (playoff placeholders resolved), for the season page and the team calendars.
+// Scores are the public ones (capped, if the league has a goal margin cap) unless `staff`: then the real scores, with `capped` on each score that was cut. Public by default so a new route can't leak real scores.
+export async function loadSeason(leagueSlug: unknown, slug?: unknown, staff = false) {
 	const [{ league, season, seasons }, teams, matches] = await Promise.all([
 		findSeason(leagueSlug, slug),
 		db
@@ -38,11 +39,17 @@ export async function loadSeason(leagueSlug: unknown, slug?: unknown) {
 			.where(eq(schema.matches.seasonId, seasonId(leagueSlug, slug)))
 			.orderBy(schema.matches.startsAt),
 	]);
-	const standings = computeStandings(teams, matches);
+	const standings = computeStandings(teams, matches, league.goalMarginCap);
 	// Playoff teams follow the standings as they stand, so they change as scores come in (until then, teams level on points keep their database order)
 	playoffFormats[league.playoffFormat](
 		matches,
 		standings.map((t) => t.id),
 	);
-	return { league, season, seasons, teams, standings, matches };
+	const shown = matches.map((m) => {
+		if (m.homeScore === null || m.awayScore === null) return { ...m, capped: false };
+		const [homeScore, awayScore] = capScore(m.homeScore, m.awayScore, league.goalMarginCap);
+		const capped = homeScore !== m.homeScore || awayScore !== m.awayScore;
+		return staff ? { ...m, capped } : { ...m, homeScore, awayScore, capped: false };
+	});
+	return { league, season, seasons, teams, standings, matches: shown };
 }
