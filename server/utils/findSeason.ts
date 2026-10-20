@@ -25,7 +25,7 @@ export const seasonId = (league: unknown, slug?: unknown) =>
 		.limit(1);
 
 // A season's teams, standings and matches (playoff placeholders resolved), for the season page and the team calendars.
-// Scores are the public ones (capped, if the league has a goal margin cap) unless `staff`: then the real scores, with `capped` on each score that was cut. Public by default so a new route can't leak real scores.
+// Scores are always the real ones. If the league has a goal margin cap, only the standings use capped scores; `staff` gets `capped` on each game whose score the standings cut (shown as `*`).
 export async function loadSeason(leagueSlug: unknown, slug?: unknown, staff = false) {
 	const [{ league, season, seasons }, teams, matches] = await Promise.all([
 		findSeason(leagueSlug, slug),
@@ -49,7 +49,7 @@ export async function loadSeason(leagueSlug: unknown, slug?: unknown, staff = fa
 		if (m.homeScore === null || m.awayScore === null) return { ...m, capped: false };
 		const [homeScore, awayScore] = capScore(m.homeScore, m.awayScore, league.goalMarginCap);
 		const capped = homeScore !== m.homeScore || awayScore !== m.awayScore;
-		return staff ? { ...m, capped } : { ...m, homeScore, awayScore, capped: false };
+		return { ...m, capped: staff && capped };
 	});
 	return { league, season, seasons, teams, standings, matches: shown };
 }

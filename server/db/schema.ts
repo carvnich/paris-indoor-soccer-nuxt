@@ -10,7 +10,7 @@ export const leagues = sqliteTable("leagues", {
 	name: text().notNull(), // "Friday Co-ed"
 	// Which playoff function resolves the bracket (playoffFormats in server/utils/season.ts), so one league's format can change without the other's
 	playoffFormat: text({ enum: ["six-team", "eight-team"] }).notNull(),
-	// Most goals a game's winner can win by on the public site and in the standings (Sunday: 5); the real scores are kept, for staff and as the tie-break on points. Null = no cap.
+	// Most goals a game's winner can win by in the standings (Sunday: 5); scores shown are always real, and the real goal difference breaks ties on points. Null = no cap (the on/off switch).
 	goalMarginCap: integer(),
 });
 

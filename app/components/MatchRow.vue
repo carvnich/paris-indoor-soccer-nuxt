@@ -47,7 +47,11 @@ async function save() {
 				<TeamShirt v-if="home" :color="home.color" />
 			</div>
 			<!-- The score once played, the faded start time until then; same line height, so entering a score doesn't make the row taller -->
-			<div class="text-center whitespace-nowrap md:text-2xl" :class="played ? 'text-sm font-medium' : 'text-xs/8 font-thin tabular-nums opacity-50'">{{ played ? `${match.homeScore} - ${match.awayScore}${match.capped ? "*" : ""}` : formatTime(match.startsAt) }}</div>
+			<div class="text-center whitespace-nowrap md:text-2xl" :class="played ? 'text-sm font-medium' : 'text-xs/8 font-thin tabular-nums opacity-50'">
+				{{ played ? `${match.homeScore} - ${match.awayScore}` : formatTime(match.startsAt) }}
+				<!-- Staff only: the standings cut this score. Out of the flow (absolute, after the text), so the score stays centered. -->
+				<span v-if="match.capped" class="absolute text-sm opacity-60" title="The standings count this game as a capped win">*</span>
+			</div>
 			<div class="flex flex-1 items-center gap-1 md:gap-2">
 				<TeamShirt v-if="away" :color="away.color" />
 				<span>{{ away?.name ?? match.awaySlot }}</span>

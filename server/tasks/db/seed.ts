@@ -21,7 +21,7 @@ interface LegacyMatch {
 
 const leagues: { slug: string; name: string; playoffFormat: "six-team" | "eight-team"; goalMarginCap: number | null; matches: LegacyMatch[] }[] = [
 	{ slug: "friday-coed", name: "Friday Co-ed", playoffFormat: "six-team", goalMarginCap: null, matches: fridayCoed2026 },
-	{ slug: "sunday-women", name: "Sunday Women's", playoffFormat: "eight-team", goalMarginCap: 5, matches: sundayWomen2026 },
+	{ slug: "sunday-women", name: "Sunday Women's", playoffFormat: "eight-team", goalMarginCap: null, matches: sundayWomen2026 },
 ];
 
 export default defineTask({
